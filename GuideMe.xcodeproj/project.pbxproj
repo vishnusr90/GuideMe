@@ -14,6 +14,7 @@
 		3F02C4E41CD934D90034141A /* GuideMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F02C4E31CD934D90034141A /* GuideMeTests.swift */; };
 		3F02C4EF1CD934DA0034141A /* GuideMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F02C4EE1CD934DA0034141A /* GuideMeUITests.swift */; };
 		3F02C5011CD9383E0034141A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F02C5001CD9383E0034141A /* Main.storyboard */; };
+		3F5F3C3E1CDBE5D200DBFB13 /* BeaconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5F3C3D1CDBE5D200DBFB13 /* BeaconViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		3F02C4EE1CD934DA0034141A /* GuideMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideMeUITests.swift; sourceTree = "<group>"; };
 		3F02C4F01CD934DA0034141A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F02C5001CD9383E0034141A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		3F5F3C3D1CDBE5D200DBFB13 /* BeaconViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				3F02C4D51CD934D90034141A /* Assets.xcassets */,
 				3F02C4D71CD934D90034141A /* LaunchScreen.storyboard */,
 				3F02C4DA1CD934D90034141A /* Info.plist */,
+				3F5F3C3D1CDBE5D200DBFB13 /* BeaconViewController.swift */,
 			);
 			path = GuideMe;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F02C4D11CD934D90034141A /* ViewController.swift in Sources */,
+				3F5F3C3E1CDBE5D200DBFB13 /* BeaconViewController.swift in Sources */,
 				3F02C4CF1CD934D90034141A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
