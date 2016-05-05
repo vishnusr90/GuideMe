@@ -40,6 +40,6 @@
     <key>NSLocationAlwaysInUseUsageDescription</key>
     <string>location in use</string>
     <key>NSLocationAlwaysUsageDescription</key>
-    <string>location always usage</string></dict>
+    <string>location always usage</string>
 </dict>
 </plist>
