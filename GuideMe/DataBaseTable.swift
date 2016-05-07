@@ -34,15 +34,7 @@ class DataBaseTable {
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
         print("Paths : " + paths)
         let docsDir = paths + "/beacon.sqlite"
-        
-        let documents = try! NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
-        print("Docu " + String(documents))
-//        let sourcePath = NSBundle.mainBundle().pathForResource("beacons", ofType: "sqlite")
-//        print(sourcePath)
-        
-        let fileManager = NSFileManager.defaultManager()
-        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
-        print("URL " + String(urls))
+ 
         
         if (sqlite3_open(docsDir, &contactDB) == SQLITE_OK) {
             

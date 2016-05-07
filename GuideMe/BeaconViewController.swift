@@ -8,41 +8,46 @@
 
 import UIKit
 import CoreLocation
-import CoreBluetooth
 import AVFoundation
 
-class BeaconViewController: UIViewController, CLLocationManagerDelegate, CBPeripheralManagerDelegate {
+class BeaconViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var screenImage: UIImageView!
     
     var locationManager : CLLocationManager!
     
     var previousMinorValue : Int = 0
-    let uuid = NSUUID(UUIDString: "7F35411E-6E82-43BC-A6EE-B6BBB472790D")
+    let uuid = NSUUID(UUIDString: "9DC6F0DD-663F-405A-8748-382382FF6D9C")
     var location : Location = Location()
     
     var synthesizer = AVSpeechSynthesizer()
     var myUtterance = AVSpeechUtterance(string: "")
     let beepSound : BeepSound = BeepSound.getInstance()
-    var bluetoothPeripheralManager: CBPeripheralManager!
+    
+    
+    @IBOutlet weak var status: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.status.text  = "viewDidLoad"
         
-        //self.textToVoice("Shiva")
+        var swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
+        swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+        self.view.addGestureRecognizer(swipeRight)
+        
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         //locationManager.requestWhenInUseAuthorization()
         
         // Testing
-        self.test(10)
+        //self.test(10)
         
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        
-        if status == .AuthorizedWhenInUse { // or .AuthorizedWhenInUse   AuthorizedAlways
+        self.status.text  = "location manager"
+        if status == .AuthorizedAlways { // or .AuthorizedWhenInUse   AuthorizedAlways
             
             if CLLocationManager.isMonitoringAvailableForClass(CLBeaconRegion.self) {
                 
@@ -65,19 +70,17 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate, CBPerip
     func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         
         let beacons = beacons.filter{$0.proximity != CLProximity.Unknown}
-        
+         self.status.text  = String(beacons.count)
         if beacons.count > 0 {
             let closestBeacon = beacons[0]
             let latestMinorValue = closestBeacon.minor.integerValue
             
             if latestMinorValue != previousMinorValue {
                 previousMinorValue = latestMinorValue
-                
-                
-                //  displayImage(closestBeacon.proximity, minorValue: latestMinorValue)
+                displayImage(closestBeacon.proximity, minorValue: Int32(latestMinorValue))
             }
         }else {
-            print("No beacons found !")
+           
             beepSound.playBeep()
             sleep(1)
             TextToVoice.getInstance().textToVoice("No beacons found in the vicinity")
@@ -86,61 +89,46 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate, CBPerip
     
     // ***  call the replay button in different function
     
-    func test(minorValue : Int32){
-        //func displayImage(distance: CLProximity, minorValue : Int) {
+    //func test(minorValue : Int32){
+    func displayImage(distance: CLProximity, minorValue : Int32) {
         
-        // accessing the image from folder    -  image.png
-        //                let imageURL = NSBundle.mainBundle().URLForResource("image", withExtension: "png")
-        //                let image = UIImage(contentsOfFile: imageURL!.path!)
-        
+       self.status.text  = "Display"
         let textToVoiceObject = TextToVoice.getInstance()
-       
         
         let distance : CLProximity = .Near
         UIView.animateWithDuration(0.8) {
             
             self.location = DataBaseTable.getInstance().fetchBeaconData(minorValue)
-            
-            
+
             switch distance {
                 
-            case .Near:
-                
-                
-                if minorValue == 10 {
+                case .Near:
+                    self.status.text  = "Reached"
                     self.screenImage.image = UIImage(named: self.location.imageURL as String)
                     self.beepSound.playBeep()
                     sleep(1)
                     self.synthesizer = textToVoiceObject.textToVoice(self.location.voiceMessage)
-                    
-                }else if minorValue == 15 {
-                    print(self.location.imageURL)
-                    self.screenImage.image = UIImage(named: self.location.imageURL as String)
-                    self.beepSound.playBeep()
-                    sleep(1)
-                    self.synthesizer = textToVoiceObject.textToVoice(self.location.voiceMessage)
-                }
                 
-            case .Immediate: print("Immediate")
+                //testing
+//                    if minorValue == 10 {
+//                        self.screenImage.image = UIImage(named: self.location.imageURL as String)
+//                        self.beepSound.playBeep()
+//                        sleep(1)
+//                        self.synthesizer = textToVoiceObject.textToVoice(self.location.voiceMessage)
+//                    
+//                    }else if minorValue == 15 {
+//                                                self.screenImage.image = UIImage(named: self.location.imageURL as String)
+//                        self.beepSound.playBeep()
+//                        sleep(1)
+//                        self.synthesizer = textToVoiceObject.textToVoice(self.location.voiceMessage)
+//                    }
+                
+                case .Immediate: print("Immediate")
             
-                            self.view.backgroundColor = UIColor.cyanColor()
-                
-                //           self.voiceMessage =  "you are immediate"
-                //           self.speak(self.voiceMessage)
-                
-                
-                //
-                //            case .Far:
-                //                self.view.backgroundColor = UIColor.blueColor()
-                //                self.textMessage.text = "You are very far, please come near"
-            //
-            default : print("Default !")
-                
+                default : print("Default !")
+                    break
             }
-            
-            
         }
-        
     }
     
     override func didReceiveMemoryWarning() {
@@ -156,45 +144,26 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate, CBPerip
     
     /* Replay the message */
     @IBAction func replayMessage(sender: AnyObject) {
+       
         self.synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
-        print("Replaying message")
         TextToVoice.getInstance().textToVoice(self.location.voiceMessage)
         
     }
     
-    
-    // check if bluetooth is switched on
-    
-    func peripheralManagerDidUpdateState(peripheral: CBPeripheralManager!) {
-        //        var statusMessage = ""
-        //
-        //        switch peripheral.state {
-        //        case CBPeripheralManagerState.PoweredOn:
-        //            statusMessage = "Bluetooth Status: Turned On"
-        //
-        //        case CBPeripheralManagerState.PoweredOff:
-        //            if isBroadcasting {
-        //                switchBroadcastingState(self)
-        //            }
-        //            statusMessage = "Bluetooth Status: Turned Off"
-        //
-        //        case CBPeripheralManagerState.Resetting:
-        //            statusMessage = "Bluetooth Status: Resetting"
-        //
-        //        case CBPeripheralManagerState.Unauthorized:
-        //            statusMessage = "Bluetooth Status: Not Authorized"
-        //
-        //        case CBPeripheralManagerState.Unsupported:
-        //            statusMessage = "Bluetooth Status: Not Supported"
-        //
-        //        default:
-        //            statusMessage = "Bluetooth Status: Unknown"
-        //        }
-        //
-        //        lblBTStatus.text = statusMessage
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            
+            switch swipeGesture.direction {
+                
+                case UISwipeGestureRecognizerDirection.Right:
+                    synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+                    self.performSegueWithIdentifier("mainScreen", sender: self)
+                default:
+                    break
+            }
+        }
     }
-    
-    
     
     /*
      // MARK: - Navigation
@@ -207,4 +176,5 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate, CBPerip
      */
 
 
+ 
 }
