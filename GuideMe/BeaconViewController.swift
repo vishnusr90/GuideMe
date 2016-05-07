@@ -21,7 +21,7 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate, CBPerip
     let uuid = NSUUID(UUIDString: "7F35411E-6E82-43BC-A6EE-B6BBB472790D")
     var location : Location = Location()
     
-    let synthesizer = AVSpeechSynthesizer()
+    var synthesizer = AVSpeechSynthesizer()
     var myUtterance = AVSpeechUtterance(string: "")
     let beepSound : BeepSound = BeepSound.getInstance()
     var bluetoothPeripheralManager: CBPeripheralManager!
@@ -37,6 +37,7 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate, CBPerip
         
         // Testing
         self.test(10)
+        
     }
     
     func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
@@ -92,7 +93,8 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate, CBPerip
         //                let imageURL = NSBundle.mainBundle().URLForResource("image", withExtension: "png")
         //                let image = UIImage(contentsOfFile: imageURL!.path!)
         
-        let textToVoice : TextToVoice = TextToVoice()
+        let textToVoiceObject = TextToVoice.getInstance()
+       
         
         let distance : CLProximity = .Near
         UIView.animateWithDuration(0.8) {
@@ -106,27 +108,22 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate, CBPerip
                 
                 
                 if minorValue == 10 {
-                    
-                    print(self.location.imageURL)
-                    //let imageURL = NSBundle.mainBundle().URLForResource(self.location.imageURL, withExtension: "png")
-                    //print("Image url " + (imageURL?.absoluteString)!)
-                    //self.screenImage.image = UIImage(contentsOfFile: imageURL!.path!)
+                    self.screenImage.image = UIImage(named: self.location.imageURL as String)
                     self.beepSound.playBeep()
                     sleep(1)
-                    print("Location msg " + self.location.voiceMessage)
-                    TextToVoice.getInstance().textToVoice(self.location.voiceMessage)
+                    self.synthesizer = textToVoiceObject.textToVoice(self.location.voiceMessage)
                     
                 }else if minorValue == 15 {
-                    
-                    
-                    self.screenImage.image = UIImage(named: "elevator.png")
-                    //           self.voiceMessage =  "Elevator ! "
-                    //           self.speak(self.voiceMessage)
+                    print(self.location.imageURL)
+                    self.screenImage.image = UIImage(named: self.location.imageURL as String)
+                    self.beepSound.playBeep()
+                    sleep(1)
+                    self.synthesizer = textToVoiceObject.textToVoice(self.location.voiceMessage)
                 }
                 
             case .Immediate: print("Immediate")
             
-            self.view.backgroundColor = UIColor.cyanColor()
+                            self.view.backgroundColor = UIColor.cyanColor()
                 
                 //           self.voiceMessage =  "you are immediate"
                 //           self.speak(self.voiceMessage)
@@ -159,7 +156,7 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate, CBPerip
     
     /* Replay the message */
     @IBAction func replayMessage(sender: AnyObject) {
-        
+        self.synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         print("Replaying message")
         TextToVoice.getInstance().textToVoice(self.location.voiceMessage)
         
