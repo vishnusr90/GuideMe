@@ -11,7 +11,7 @@ import AVFoundation
 
 class ViewController: UIViewController {
 
-    let synth = AVSpeechSynthesizer()
+    var synthesizer = AVSpeechSynthesizer()
     var myUtterance = AVSpeechUtterance(string: "")
     
     @IBAction func startNavigating(sender: AnyObject) {
@@ -39,10 +39,11 @@ class ViewController: UIViewController {
     
     func playIntroductoryMessage() {
         
-        var voiceMessage : String = "Hi, Welcome to GuideMe. Your screen has only two buttons. Press the top button to start navigating or the bottom one to setup "
-        myUtterance = AVSpeechUtterance(string: voiceMessage)
-        myUtterance.rate = 0.4
-        synth.speakUtterance(myUtterance)
+        BeepSound.getInstance().playBeep()
+        sleep(1)
+        
+        let voiceMessage : String = "Hi, Welcome to GuideMe. Your screen has only two buttons. Press the top button to start navigating or the bottom one to setup "
+        synthesizer  = TextToVoice.getInstance().textToVoice(voiceMessage)
     }
 
 

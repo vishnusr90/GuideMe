@@ -14,6 +14,14 @@
 		3F02C4E41CD934D90034141A /* GuideMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F02C4E31CD934D90034141A /* GuideMeTests.swift */; };
 		3F02C4EF1CD934DA0034141A /* GuideMeUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F02C4EE1CD934DA0034141A /* GuideMeUITests.swift */; };
 		3F02C5011CD9383E0034141A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3F02C5001CD9383E0034141A /* Main.storyboard */; };
+		3F030C031CDD919C002932C2 /* Bridging-Header.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F030C021CDD919C002932C2 /* Bridging-Header.m */; };
+		3F030C081CDD9225002932C2 /* DataBaseTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F030C071CDD9225002932C2 /* DataBaseTable.swift */; };
+		3F030C0A1CDD924F002932C2 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F030C091CDD924F002932C2 /* Location.swift */; };
+		3F030C0D1CDD9271002932C2 /* BeepSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F030C0B1CDD9271002932C2 /* BeepSound.swift */; };
+		3F030C0E1CDD9271002932C2 /* notify.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F030C0C1CDD9271002932C2 /* notify.mp3 */; };
+		3F030C101CDD9289002932C2 /* TextToVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F030C0F1CDD9289002932C2 /* TextToVoice.swift */; };
+		3F030C121CDD9539002932C2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F030C111CDD9539002932C2 /* libsqlite3.tbd */; };
+		3F030C141CDD9540002932C2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F030C131CDD9540002932C2 /* AVFoundation.framework */; };
 		3F5F3C3E1CDBE5D200DBFB13 /* BeaconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5F3C3D1CDBE5D200DBFB13 /* BeaconViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -48,6 +56,15 @@
 		3F02C4EE1CD934DA0034141A /* GuideMeUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuideMeUITests.swift; sourceTree = "<group>"; };
 		3F02C4F01CD934DA0034141A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3F02C5001CD9383E0034141A /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		3F030C011CDD919B002932C2 /* GuideMe-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GuideMe-Bridging-Header.h"; sourceTree = "<group>"; };
+		3F030C021CDD919C002932C2 /* Bridging-Header.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Bridging-Header.m"; sourceTree = "<group>"; };
+		3F030C071CDD9225002932C2 /* DataBaseTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataBaseTable.swift; sourceTree = "<group>"; };
+		3F030C091CDD924F002932C2 /* Location.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		3F030C0B1CDD9271002932C2 /* BeepSound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeepSound.swift; sourceTree = "<group>"; };
+		3F030C0C1CDD9271002932C2 /* notify.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = notify.mp3; sourceTree = "<group>"; };
+		3F030C0F1CDD9289002932C2 /* TextToVoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToVoice.swift; sourceTree = "<group>"; };
+		3F030C111CDD9539002932C2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		3F030C131CDD9540002932C2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3F5F3C3D1CDBE5D200DBFB13 /* BeaconViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,6 +73,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F030C141CDD9540002932C2 /* AVFoundation.framework in Frameworks */,
+				3F030C121CDD9539002932C2 /* libsqlite3.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,10 +98,14 @@
 		3F02C4C21CD934D90034141A = {
 			isa = PBXGroup;
 			children = (
+				3F030C131CDD9540002932C2 /* AVFoundation.framework */,
+				3F030C111CDD9539002932C2 /* libsqlite3.tbd */,
+				3F030C021CDD919C002932C2 /* Bridging-Header.m */,
 				3F02C4CD1CD934D90034141A /* GuideMe */,
 				3F02C4E21CD934D90034141A /* GuideMeTests */,
 				3F02C4ED1CD934DA0034141A /* GuideMeUITests */,
 				3F02C4CC1CD934D90034141A /* Products */,
+				3F030C011CDD919B002932C2 /* GuideMe-Bridging-Header.h */,
 			);
 			sourceTree = "<group>";
 		};
@@ -99,13 +122,16 @@
 		3F02C4CD1CD934D90034141A /* GuideMe */ = {
 			isa = PBXGroup;
 			children = (
+				3F030C061CDD920A002932C2 /* Database */,
+				3F030C051CDD9204002932C2 /* Model */,
+				3F030C041CDD91F0002932C2 /* Sound */,
 				3F02C4CE1CD934D90034141A /* AppDelegate.swift */,
 				3F02C4D01CD934D90034141A /* ViewController.swift */,
+				3F5F3C3D1CDBE5D200DBFB13 /* BeaconViewController.swift */,
 				3F02C5001CD9383E0034141A /* Main.storyboard */,
 				3F02C4D51CD934D90034141A /* Assets.xcassets */,
 				3F02C4D71CD934D90034141A /* LaunchScreen.storyboard */,
 				3F02C4DA1CD934D90034141A /* Info.plist */,
-				3F5F3C3D1CDBE5D200DBFB13 /* BeaconViewController.swift */,
 			);
 			path = GuideMe;
 			sourceTree = "<group>";
@@ -126,6 +152,32 @@
 				3F02C4F01CD934DA0034141A /* Info.plist */,
 			);
 			path = GuideMeUITests;
+			sourceTree = "<group>";
+		};
+		3F030C041CDD91F0002932C2 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				3F030C0F1CDD9289002932C2 /* TextToVoice.swift */,
+				3F030C0B1CDD9271002932C2 /* BeepSound.swift */,
+				3F030C0C1CDD9271002932C2 /* notify.mp3 */,
+			);
+			name = Sound;
+			sourceTree = "<group>";
+		};
+		3F030C051CDD9204002932C2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				3F030C091CDD924F002932C2 /* Location.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		3F030C061CDD920A002932C2 /* Database */ = {
+			isa = PBXGroup;
+			children = (
+				3F030C071CDD9225002932C2 /* DataBaseTable.swift */,
+			);
+			name = Database;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +285,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3F02C4D91CD934D90034141A /* LaunchScreen.storyboard in Resources */,
+				3F030C0E1CDD9271002932C2 /* notify.mp3 in Resources */,
 				3F02C4D61CD934D90034141A /* Assets.xcassets in Resources */,
 				3F02C5011CD9383E0034141A /* Main.storyboard in Resources */,
 			);
@@ -259,8 +312,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F030C0D1CDD9271002932C2 /* BeepSound.swift in Sources */,
+				3F030C081CDD9225002932C2 /* DataBaseTable.swift in Sources */,
+				3F030C101CDD9289002932C2 /* TextToVoice.swift in Sources */,
+				3F030C031CDD919C002932C2 /* Bridging-Header.m in Sources */,
 				3F02C4D11CD934D90034141A /* ViewController.swift in Sources */,
 				3F5F3C3E1CDBE5D200DBFB13 /* BeaconViewController.swift in Sources */,
+				3F030C0A1CDD924F002932C2 /* Location.swift in Sources */,
 				3F02C4CF1CD934D90034141A /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,10 +453,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GuideMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sg.edu.nus.iss.GuideMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GuideMe-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -406,10 +467,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GuideMe/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = sg.edu.nus.iss.GuideMe;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GuideMe-Bridging-Header.h";
 			};
 			name = Release;
 		};
