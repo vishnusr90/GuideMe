@@ -33,8 +33,16 @@ class DataBaseTable {
         
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
         print("Paths : " + paths)
+        let docsDir = paths + "/beacon.sqlite"
         
-        let docsDir = paths + "/contacts.sqlite"
+        let documents = try! NSFileManager.defaultManager().URLForDirectory(.DocumentDirectory, inDomain: .UserDomainMask, appropriateForURL: nil, create: false)
+        print("Docu " + String(documents))
+//        let sourcePath = NSBundle.mainBundle().pathForResource("beacons", ofType: "sqlite")
+//        print(sourcePath)
+        
+        let fileManager = NSFileManager.defaultManager()
+        let urls = fileManager.URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+        print("URL " + String(urls))
         
         if (sqlite3_open(docsDir, &contactDB) == SQLITE_OK) {
             
@@ -50,10 +58,34 @@ class DataBaseTable {
             print(sqlite3_errmsg(contactDB))
         }
      
-        prepareStatement()
+        deleteContents()
 
+        prepareStatement()
+        
     }
     
+    func deleteContents() {
+        var sqlString : String
+        sqlString = "DELETE FROM BEACON"
+        var cSql = sqlString.cStringUsingEncoding(NSUTF8StringEncoding)
+        sqlite3_prepare_v2(contactDB,cSql!, -1, &deleteStatement, nil)
+        
+        if(sqlite3_step(deleteStatement) ==  SQLITE_DONE) {
+            
+            print("Successfully deleted the records")
+            
+        }else {
+            
+            print("Failed to delete records")
+            print("Error code in delete: ", sqlite3_errcode(contactDB))
+            let error = String.fromCString(sqlite3_errmsg(contactDB))
+            print("Error msg in delete records: ", error)
+        }
+        
+        sqlite3_reset(deleteStatement)
+        sqlite3_clear_bindings(deleteStatement)
+
+    }
     
     func prepareStatement() {
         var sqlString : String
