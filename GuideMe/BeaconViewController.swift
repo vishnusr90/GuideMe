@@ -43,7 +43,7 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
         //locationManager.requestWhenInUseAuthorization()
         
         // Testing
-        self.test(10)
+        //self.test(10)
         
     }
     
@@ -81,7 +81,7 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
             
             if latestMinorValue != previousMinorValue {
                 previousMinorValue = latestMinorValue
-               // displayImage(closestBeacon.proximity, minorValue: Int32(latestMinorValue))
+                displayImage(closestBeacon.proximity, minorValue: Int32(latestMinorValue))
             }
         }else {
            
@@ -92,8 +92,8 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    func test(minorValue : Int32){
-    //func displayImage(distance: CLProximity, minorValue : Int32) {
+    //func test(minorValue : Int32){
+    func displayImage(distance: CLProximity, minorValue : Int32) {
         
         self.status.text  = "Display"
         let textToVoiceObject = TextToVoice.getInstance()
