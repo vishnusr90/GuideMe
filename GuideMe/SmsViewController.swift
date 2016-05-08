@@ -9,34 +9,37 @@
 import Foundation
 import UIKit
 
-class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate {
     
+    @IBOutlet weak var scrollPage: UIScrollView!
     
     var contactList : NSMutableArray!
     var phoneList : NSMutableArray!
     
     @IBOutlet weak var name: UITextField!
-    
     @IBOutlet weak var phone: UITextField!
     @IBOutlet weak var status: UILabel!
     
     var contactDB : COpaquePointer = nil;
     var insertStatement : COpaquePointer = nil;
-    
     var selectStatement : COpaquePointer = nil;
     var updateStatement : COpaquePointer = nil;
     var deleteStatement : COpaquePointer = nil;
     
     let SQLITE_TRANSIENT = unsafeBitCast(-1, sqlite3_destructor_type.self)
     
-    
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+ 
+        scrollPage.contentSize.height = 700
         contactList = NSMutableArray()
         phoneList = NSMutableArray()
         
+        var swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
+        swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+        self.view.addGestureRecognizer(swipeRight)
         
+        name.delegate = self
+        phone.delegate = self
         
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) [0] as String
         
@@ -178,12 +181,9 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         if(sqlite3_step(updateStatement) == SQLITE_DONE)
         {
             status.text = "Contact updated";
-           
-           
             phoneList?.removeLastObject()
             phoneList?.addObject(phoneStr!)
-//            print(phoneStr)
-//            print(phoneList)
+
         }
             
         else {
@@ -209,8 +209,7 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
             status.text = "Contact deleted";
             contactList?.removeObject(nameStr!)
             phoneList?.removeObject(phoneStr!)
-//            print(contactList)
-//            print(phoneList)
+
         }
         else {
             status.text = "Failed to delete contact";
@@ -225,19 +224,17 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         
         
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     @IBOutlet weak var tableView: UITableView!
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contactList.count
     }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
@@ -249,15 +246,16 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         return cell
     }
     
+    
     func loadContact(){
         print("being fetched")
         while(sqlite3_step(selectStatement) == SQLITE_ROW)
         {
-            print("being fetched1")
+            
             let contact_buf = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(selectStatement, 1)))
             let phn_buf = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(selectStatement, 2)))
+            
             if(contact_buf != nil && phn_buf != nil){
-                print("being fetched2")
                 contactList.addObject(contact_buf!)
                 phoneList.addObject(phn_buf!)
                 print("values fetched: \(String(contact_buf)) \(String(phn_buf))")
@@ -267,8 +265,41 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         sqlite3_clear_bindings(selectStatement)
         tableView.reloadData()
     }
-
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        name.resignFirstResponder()
+        phone.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        name.resignFirstResponder()
+        phone.resignFirstResponder()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            
+            switch swipeGesture.direction {
+                
+            case UISwipeGestureRecognizerDirection.Right:
+                self.performSegueWithIdentifier("mainScreen", sender: self)
+            default:
+                break
+            }
+        }
+    }
+    
+    @IBAction func returnToMainScreen(sender: AnyObject) {
+        
+        self.performSegueWithIdentifier("unwindToMainScreen", sender: self)
+    }
 }
 
 
