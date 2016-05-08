@@ -138,7 +138,12 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
     
     /* Sending sms */
     @IBAction func sendSMS(sender: AnyObject) {
-        print("Sending sms")
+        
+        let phone = SmsViewController().retrivePhoneNumber()
+        print("Calling\(phone)")
+//      let phone = "84290757"
+        var callUrl : NSURL = NSURL(string: "tel://\(phone)")!
+        UIApplication.sharedApplication().openURL(callUrl)
     }
     
     
