@@ -15,15 +15,13 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
     @IBOutlet weak var screenImage: UIImageView!
     
     var locationManager : CLLocationManager!
-    
     var previousMinorValue : Int = 0
     let uuid = NSUUID(UUIDString: "9DC6F0DD-663F-405A-8748-382382FF6D9C")
     var location : Location = Location()
-    
+    static var directionMessageCount = 0
     var synthesizer = AVSpeechSynthesizer()
     var myUtterance = AVSpeechUtterance(string: "")
     let beepSound : BeepSound = BeepSound.getInstance()
-    
     
     @IBOutlet weak var status: UILabel!
     
@@ -35,13 +33,17 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
         
+        if BeaconViewController.directionMessageCount == 0{
+            self.playDirectionMessage()
+        }
+        
         locationManager = CLLocationManager()
         locationManager.delegate = self
         locationManager.requestAlwaysAuthorization()
         //locationManager.requestWhenInUseAuthorization()
         
         // Testing
-        //self.test(10)
+        self.test(10)
         
     }
     
@@ -58,13 +60,15 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
+    
     func scanForDevices() {
         
         let beaconRegion = CLBeaconRegion(proximityUUID: uuid!, identifier: "hello")
         locationManager.startMonitoringForRegion(beaconRegion)
         locationManager.startRangingBeaconsInRegion(beaconRegion)
-        
+
     }
+    
     
     // Reading beacon's distance
     func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
@@ -77,7 +81,7 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
             
             if latestMinorValue != previousMinorValue {
                 previousMinorValue = latestMinorValue
-                displayImage(closestBeacon.proximity, minorValue: Int32(latestMinorValue))
+               // displayImage(closestBeacon.proximity, minorValue: Int32(latestMinorValue))
             }
         }else {
            
@@ -87,12 +91,11 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    // ***  call the replay button in different function
     
-    //func test(minorValue : Int32){
-    func displayImage(distance: CLProximity, minorValue : Int32) {
+    func test(minorValue : Int32){
+    //func displayImage(distance: CLProximity, minorValue : Int32) {
         
-       self.status.text  = "Display"
+        self.status.text  = "Display"
         let textToVoiceObject = TextToVoice.getInstance()
         
         let distance : CLProximity = .Near
@@ -109,21 +112,7 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
                     sleep(1)
                     self.synthesizer = textToVoiceObject.textToVoice(self.location.voiceMessage)
                 
-                //testing
-//                    if minorValue == 10 {
-//                        self.screenImage.image = UIImage(named: self.location.imageURL as String)
-//                        self.beepSound.playBeep()
-//                        sleep(1)
-//                        self.synthesizer = textToVoiceObject.textToVoice(self.location.voiceMessage)
-//                    
-//                    }else if minorValue == 15 {
-//                                                self.screenImage.image = UIImage(named: self.location.imageURL as String)
-//                        self.beepSound.playBeep()
-//                        sleep(1)
-//                        self.synthesizer = textToVoiceObject.textToVoice(self.location.voiceMessage)
-//                    }
-                
-                case .Immediate: print("Immediate")
+                case .Immediate: break //print("Immediate")
             
                 default : print("Default !")
                     break
@@ -131,10 +120,6 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     /* Sending sms */
     @IBAction func sendSMS(sender: AnyObject) {
@@ -147,6 +132,7 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
+    
     /* Replay the message */
     @IBAction func replayMessage(sender: AnyObject) {
        
@@ -154,6 +140,7 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
         TextToVoice.getInstance().textToVoice(self.location.voiceMessage)
         
     }
+    
     
     func respondToSwipeGesture(gesture: UIGestureRecognizer) {
         
@@ -169,6 +156,19 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
             }
         }
     }
+    
+    func playDirectionMessage() {
+        let message = "To return to main screen , please swipe right"
+        TextToVoice.getInstance().textToVoice(message)
+        BeaconViewController.directionMessageCount += 1
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     
     /*
      // MARK: - Navigation
