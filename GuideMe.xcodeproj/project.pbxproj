@@ -24,6 +24,8 @@
 		3F030C141CDD9540002932C2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F030C131CDD9540002932C2 /* AVFoundation.framework */; };
 		3F09A0AD1CDDD5FB0009A39C /* SmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F09A0AC1CDDD5FB0009A39C /* SmsViewController.swift */; };
 		3F5F3C3E1CDBE5D200DBFB13 /* BeaconViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F5F3C3D1CDBE5D200DBFB13 /* BeaconViewController.swift */; };
+		3FF9379C1CDFA3BE00267F30 /* ContactsDataBaseTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF9379B1CDFA3BE00267F30 /* ContactsDataBaseTable.swift */; };
+		3FF9379E1CDFAD6B00267F30 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FF9379D1CDFAD6B00267F30 /* Contact.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,8 @@
 		3F030C131CDD9540002932C2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3F09A0AC1CDDD5FB0009A39C /* SmsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmsViewController.swift; sourceTree = "<group>"; };
 		3F5F3C3D1CDBE5D200DBFB13 /* BeaconViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconViewController.swift; sourceTree = "<group>"; };
+		3FF9379B1CDFA3BE00267F30 /* ContactsDataBaseTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsDataBaseTable.swift; sourceTree = "<group>"; };
+		3FF9379D1CDFAD6B00267F30 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -171,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				3F030C091CDD924F002932C2 /* Location.swift */,
+				3FF9379D1CDFAD6B00267F30 /* Contact.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -179,6 +184,7 @@
 			isa = PBXGroup;
 			children = (
 				3F030C071CDD9225002932C2 /* DataBaseTable.swift */,
+				3FF9379B1CDFA3BE00267F30 /* ContactsDataBaseTable.swift */,
 			);
 			name = Database;
 			sourceTree = "<group>";
@@ -320,7 +326,9 @@
 				3F030C081CDD9225002932C2 /* DataBaseTable.swift in Sources */,
 				3F030C101CDD9289002932C2 /* TextToVoice.swift in Sources */,
 				3F030C031CDD919C002932C2 /* Bridging-Header.m in Sources */,
+				3FF9379C1CDFA3BE00267F30 /* ContactsDataBaseTable.swift in Sources */,
 				3F09A0AD1CDDD5FB0009A39C /* SmsViewController.swift in Sources */,
+				3FF9379E1CDFAD6B00267F30 /* Contact.swift in Sources */,
 				3F02C4D11CD934D90034141A /* ViewController.swift in Sources */,
 				3F5F3C3E1CDBE5D200DBFB13 /* BeaconViewController.swift in Sources */,
 				3F030C0A1CDD924F002932C2 /* Location.swift in Sources */,
