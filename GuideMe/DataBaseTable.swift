@@ -12,6 +12,7 @@ class DataBaseTable {
     
     static var databaseInstance : DataBaseTable?
     
+    var beaconDB: COpaquePointer = nil
     var contactDB: COpaquePointer = nil
     var insertStatement : COpaquePointer = nil
     var selectStatement : COpaquePointer = nil
@@ -36,18 +37,18 @@ class DataBaseTable {
         let docsDir = paths + "/beacon.sqlite"
  
         
-        if (sqlite3_open(docsDir, &contactDB) == SQLITE_OK) {
+        if (sqlite3_open(docsDir, &beaconDB) == SQLITE_OK) {
             
             
             let sql = "CREATE TABLE IF NOT EXISTS BEACON (MINOR INTEGER PRIMARY KEY , LOCATION TEXT, VOICEMESSAGE TEXT, IMAGE TEXT)"
             
-            if (sqlite3_exec(contactDB, sql, nil, nil, nil) != SQLITE_OK) {
+            if (sqlite3_exec(beaconDB, sql, nil, nil, nil) != SQLITE_OK) {
                 print("Failed to create table")
-                print(sqlite3_errmsg(contactDB))
+                print(sqlite3_errmsg(beaconDB))
             }
         } else {
             print("Failed to open database")
-            print(sqlite3_errmsg(contactDB))
+            print(sqlite3_errmsg(beaconDB))
         }
      
         deleteContents()
@@ -55,12 +56,11 @@ class DataBaseTable {
         prepareStatement()
         
     }
-    
     func deleteContents() {
         var sqlString : String
         sqlString = "DELETE FROM BEACON"
         var cSql = sqlString.cStringUsingEncoding(NSUTF8StringEncoding)
-        sqlite3_prepare_v2(contactDB,cSql!, -1, &deleteStatement, nil)
+        sqlite3_prepare_v2(beaconDB,cSql!, -1, &deleteStatement, nil)
         
         if(sqlite3_step(deleteStatement) ==  SQLITE_DONE) {
             
@@ -69,8 +69,8 @@ class DataBaseTable {
         }else {
             
             print("Failed to delete records")
-            print("Error code in delete: ", sqlite3_errcode(contactDB))
-            let error = String.fromCString(sqlite3_errmsg(contactDB))
+            print("Error code in delete: ", sqlite3_errcode(beaconDB))
+            let error = String.fromCString(sqlite3_errmsg(beaconDB))
             print("Error msg in delete records: ", error)
         }
         
@@ -84,12 +84,12 @@ class DataBaseTable {
         
         sqlString = "INSERT INTO BEACON (minor , location, voicemessage, image) VALUES (?,?,?,?)"
         var cSql = sqlString.cStringUsingEncoding(NSUTF8StringEncoding)
-        sqlite3_prepare_v2(contactDB,cSql!, -1, &insertStatement, nil)
+        sqlite3_prepare_v2(beaconDB,cSql!, -1, &insertStatement, nil)
         
         
         sqlString = "SELECT voicemessage, image, location FROM BEACON WHERE minor = ?"
         cSql = sqlString.cStringUsingEncoding(NSUTF8StringEncoding)
-        sqlite3_prepare_v2(contactDB,cSql!, -1, &selectStatement, nil)
+        sqlite3_prepare_v2(beaconDB,cSql!, -1, &selectStatement, nil)
         
         
 //        sqlString = "DELETE FROM BEACON WHERE name = ?"
@@ -121,8 +121,8 @@ class DataBaseTable {
         }else {
             
             print("Failed to add beacon")
-            print("Error code: ", sqlite3_errcode(contactDB))
-            let error = String.fromCString(sqlite3_errmsg(contactDB))
+            print("Error code: ", sqlite3_errcode(beaconDB))
+            let error = String.fromCString(sqlite3_errmsg(beaconDB))
             print("Error msg in create: ", error)
         }
         
@@ -140,8 +140,8 @@ class DataBaseTable {
         }else {
             
             print("Failed to add beacon")
-            print("Error code: ", sqlite3_errcode(contactDB))
-            let error = String.fromCString(sqlite3_errmsg(contactDB))
+            print("Error code: ", sqlite3_errcode(beaconDB))
+            let error = String.fromCString(sqlite3_errmsg(beaconDB))
             print("Error msg in create: ", error)
         }
         
@@ -173,8 +173,8 @@ class DataBaseTable {
             
         }else {
             
-            print("Error code: ", sqlite3_errcode(contactDB))
-            let error = String.fromCString(sqlite3_errmsg(contactDB))
+            print("Error code: ", sqlite3_errcode(beaconDB))
+            let error = String.fromCString(sqlite3_errmsg(beaconDB))
             print("Error msg in find: ", error)
         }
         
