@@ -9,14 +9,14 @@
 import Foundation
 import UIKit
 
-class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate {
+class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate {
     
+    @IBOutlet weak var scrollPage: UIScrollView!
     
     var contactList = NSMutableArray()
     var phoneList = NSMutableArray()
     
     @IBOutlet weak var name: UITextField!
-    
     @IBOutlet weak var phone: UITextField!
     @IBOutlet weak var status: UILabel!
     
@@ -104,19 +104,17 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         
         
     }
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
     
     @IBOutlet weak var tableView: UITableView!
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contactList.count
     }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
@@ -155,8 +153,41 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         return phone
         
     }
-
     
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        name.resignFirstResponder()
+        phone.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        name.resignFirstResponder()
+        phone.resignFirstResponder()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+
+    func respondToSwipeGesture(gesture: UIGestureRecognizer) {
+        
+        if let swipeGesture = gesture as? UISwipeGestureRecognizer {
+            
+            switch swipeGesture.direction {
+                
+            case UISwipeGestureRecognizerDirection.Right:
+                self.performSegueWithIdentifier("mainScreen", sender: self)
+            default:
+                break
+            }
+        }
+    }
+    
+    @IBAction func returnToMainScreen(sender: AnyObject) {
+        
+        self.performSegueWithIdentifier("unwindToMainScreen", sender: self)
+    }
 }
 
 
