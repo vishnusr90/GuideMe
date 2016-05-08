@@ -31,7 +31,7 @@ class ViewController: UIViewController, CBCentralManagerDelegate {
         
         synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let nvc : UIViewController = storyBoard.instantiateViewControllerWithIdentifier("smsView")
+        let nvc : UIViewController = storyBoard.instantiateViewControllerWithIdentifier("smsViewController")
         self.presentViewController(nvc, animated: true, completion: nil)
     }
     
