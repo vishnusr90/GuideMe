@@ -43,7 +43,7 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
         //locationManager.requestWhenInUseAuthorization()
         
         // Testing
-        self.test(10)
+        //self.test(10)
         
     }
     
@@ -81,7 +81,7 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
             
             if latestMinorValue != previousMinorValue {
                 previousMinorValue = latestMinorValue
-               // displayImage(closestBeacon.proximity, minorValue: Int32(latestMinorValue))
+                displayImage(closestBeacon.proximity, minorValue: Int32(latestMinorValue))
             }
         }else {
            
@@ -92,8 +92,8 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     
-    func test(minorValue : Int32){
-    //func displayImage(distance: CLProximity, minorValue : Int32) {
+    //func test(minorValue : Int32){
+    func displayImage(distance: CLProximity, minorValue : Int32) {
         
         self.status.text  = "Display"
         let textToVoiceObject = TextToVoice.getInstance()
@@ -123,8 +123,12 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
     
     /* Sending sms */
     @IBAction func sendSMS(sender: AnyObject) {
-        print("Sending sms")
-        self.synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
+        
+        let phone = SmsViewController().retrivePhoneNumber()
+        print("Calling\(phone)")
+//      let phone = "84290757"
+        var callUrl : NSURL = NSURL(string: "tel://\(phone)")!
+        UIApplication.sharedApplication().openURL(callUrl)
     }
     
     

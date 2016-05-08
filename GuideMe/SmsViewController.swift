@@ -13,14 +13,18 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     
     @IBOutlet weak var scrollPage: UIScrollView!
     
-    var contactList : NSMutableArray!
-    var phoneList : NSMutableArray!
+    var contactList = NSMutableArray()
+    var phoneList = NSMutableArray()
     
     @IBOutlet weak var name: UITextField!
     @IBOutlet weak var phone: UITextField!
     @IBOutlet weak var status: UILabel!
     
+    
+    @IBOutlet weak var addOutlet: UIButton!
+    
     var contactDB : COpaquePointer = nil;
+    
     var insertStatement : COpaquePointer = nil;
     var selectStatement : COpaquePointer = nil;
     var updateStatement : COpaquePointer = nil;
@@ -28,11 +32,15 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     
     let SQLITE_TRANSIENT = unsafeBitCast(-1, sqlite3_destructor_type.self)
     
+    
+    
+    
+    
     override func viewDidLoad() {
  
         scrollPage.contentSize.height = 700
-        contactList = NSMutableArray()
-        phoneList = NSMutableArray()
+//        contactList = NSMutableArray()
+//        phoneList = NSMutableArray()
         
         var swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
@@ -41,160 +49,72 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         name.delegate = self
         phone.delegate = self
         
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) [0] as String
-        
-        print(paths)
-        
-        let docsDir = paths + "/contacts.sqlite"
-        
-        if(sqlite3_open(docsDir, &contactDB) == SQLITE_OK)
-        {
-            let sql = "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT,PHONE TEXT)"
-            
-            
-            if(sqlite3_exec(contactDB,sql,nil,nil,nil)  !=  SQLITE_OK){
-                print("Failed to create table")
-                print(sqlite3_errmsg(contactDB));
-                
-            }
-        }
-        else {
-            
-            print("Failed to open database")
-            print(sqlite3_errmsg(contactDB));
-            
-        }
-        
-        prepareStartment();
-        
+//        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) [0] as String
+//        
+//        print(paths)
+//        
+//        let docsDir = paths + "/contacts.sqlite"
+//        
+//        if(sqlite3_open(docsDir, &contactDB) == SQLITE_OK)
+//        {
+//            let sql = "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT,PHONE TEXT)"
+//            
+//            
+//            if(sqlite3_exec(contactDB,sql,nil,nil,nil)  !=  SQLITE_OK){
+//                print("Failed to create table")
+//                print(sqlite3_errmsg(contactDB));
+//                
+//            }
+//        }
+//        else {
+//            
+//            print("Failed to open database")
+//            print(sqlite3_errmsg(contactDB));
+//            
+//        }
+//        
+//        prepareStartment();
+//        
         tableView.delegate = self
         tableView.dataSource = self
-        loadContact()
-        
+        viewContact()
+      
     }
     
-    
-    func prepareStartment() {
-        var sqlString : String
-        sqlString = "INSERT INTO CONTACTS (name,phone) VALUES (?,?)"
-        var cSql = sqlString.cStringUsingEncoding(NSUTF8StringEncoding)
-        sqlite3_prepare_v2(contactDB,cSql!,-1,&insertStatement,nil)
-        
-        
-        
-//        sqlString = "SELECT phone FROM contacts WHERE name=?"
-//        cSql = sqlString.cStringUsingEncoding(NSUTF8StringEncoding)
-//        sqlite3_prepare_v2(contactDB,cSql!,-1,&selectStatement,nil)
-       
-        
-        sqlString = "UPDATE CONTACTS SET phone=? WHERE name = ?"
-        cSql = sqlString.cStringUsingEncoding(NSUTF8StringEncoding)
-        sqlite3_prepare_v2(contactDB,cSql!,-1,&updateStatement,nil)
-        
-        
-        
-        sqlString = "DELETE FROM CONTACTS WHERE name = ?"
-        cSql = sqlString.cStringUsingEncoding(NSUTF8StringEncoding)
-        sqlite3_prepare_v2(contactDB,cSql!,-1,&deleteStatement,nil)
-        
-        
-        sqlString = "SELECT * FROM CONTACTS"
-        cSql = sqlString.cStringUsingEncoding(NSUTF8StringEncoding)
-        sqlite3_prepare_v2(contactDB,cSql!,-1,&selectStatement,nil)
-        
-
-    }
     
     @IBAction func createContact(sender: AnyObject) {
-        
-        
         
         let nameStr = name.text as NSString?
         
         let phoneStr = phone.text as NSString?
+        var contact : Contact = Contact()
+        
+        contact =  ContactsDataBaseTable.getInstance().createContact(nameStr!,phone: phoneStr!)
+        contactList.addObject(contact.name!)
+        phoneList.addObject(contact.phoneNumber!)
+        status.text = contact.status
         
         
-        sqlite3_bind_text(insertStatement, 1, nameStr!.UTF8String, -1, SQLITE_TRANSIENT);
-    
-        sqlite3_bind_text(insertStatement, 2, phoneStr!.UTF8String, -1, SQLITE_TRANSIENT);
-        
-        
-        if(sqlite3_step(insertStatement) == SQLITE_DONE)
-        {
-            status.text = "Contact added";
-            contactList?.addObject(nameStr!)
-            phoneList?.addObject(phoneStr!)
-//            print(phoneList)
-        }
-            
-        else {
-            
-            status.text = "Failed to add contact";
-            print("Error Code: ", sqlite3_errcode (contactDB));
-            let error = String.fromCString(sqlite3_errmsg(contactDB));
-            print("Error msg: ",error);
-        }
-        sqlite3_reset(insertStatement);
-        sqlite3_clear_bindings(insertStatement);
+        addOutlet.enabled = false
+
         tableView.reloadData()
-        
-        
-        
+
     }
-//    @IBAction func findContact(sender: AnyObject) {
-//        
-//        let nameStr = name.text as NSString?
-//        sqlite3_bind_text(selectStatement, 1, nameStr!.UTF8String, -1, SQLITE_TRANSIENT);
-//        
-//        if(sqlite3_step(selectStatement) == SQLITE_ROW){
-//            status.text = "Record retrieved";
-//           
-//            
-//            let phone_buf = sqlite3_column_text(selectStatement, 1)
-//            phone.text = String.fromCString(UnsafePointer<CChar>(phone_buf))
-//        }
-//        else {
-//            status.text = "Failed to retrive contact";
-//            
-//            phone.text = " ";
-//            print("Error code: ",sqlite3_errcode(contactDB));
-//            let error = String.fromCString(sqlite3_errmsg(contactDB));
-//            print("Error msg: ", error);
-//        }
-//        
-//        sqlite3_reset(selectStatement);
-//        sqlite3_clear_bindings(selectStatement);
-//        
-//        
-//    }
     
     @IBAction func updateContact(sender: AnyObject) {
         let nameStr = name.text as NSString?
         
         let phoneStr = phone.text as NSString?
+        var contact : Contact = Contact()
         
+        contact = ContactsDataBaseTable.getInstance().updateContact(nameStr!, phone: phoneStr!)
       
-        sqlite3_bind_text(updateStatement, 1, phoneStr!.UTF8String, -1, SQLITE_TRANSIENT);
-        sqlite3_bind_text(updateStatement, 2, nameStr!.UTF8String, -1, SQLITE_TRANSIENT);
-        
-        
-        if(sqlite3_step(updateStatement) == SQLITE_DONE)
-        {
-            status.text = "Contact updated";
-            phoneList?.removeLastObject()
-            phoneList?.addObject(phoneStr!)
+            status.text = contact.status
+            contactList.removeLastObject()
+            contactList.addObject(contact.name!)
+            phoneList.removeLastObject()
+            phoneList.addObject(contact.phoneNumber!)
 
-        }
-            
-        else {
-            
-            status.text = "Failed to update contact";
-            print("Error Code: ", sqlite3_errcode (contactDB));
-            let error = String.fromCString(sqlite3_errmsg(contactDB));
-            print("Error msg: ",error);
-        }
-        sqlite3_reset(updateStatement);
-        sqlite3_clear_bindings(updateStatement);
         tableView.reloadData()
         
     }
@@ -202,24 +122,19 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     @IBAction func deleteContact(sender: AnyObject) {
         let nameStr = name.text as NSString?
         let phoneStr = phone.text as NSString?
-        sqlite3_bind_text(deleteStatement, 1, nameStr!.UTF8String, -1, SQLITE_TRANSIENT);
-        
-        
-        if(sqlite3_step(deleteStatement) == SQLITE_DONE){
-            status.text = "Contact deleted";
-            contactList?.removeObject(nameStr!)
-            phoneList?.removeObject(phoneStr!)
+        var contact : Contact = Contact()
+        contact = ContactsDataBaseTable.getInstance().deleteContact(nameStr!, phone: phoneStr!)
 
-        }
-        else {
-            status.text = "Failed to delete contact";
-            print("Error code: ",sqlite3_errcode(contactDB));
-            let error = String.fromCString(sqlite3_errmsg(contactDB));
-            print("Error msg: ", error);
-        }
+            status.text = contact.status
+            contactList.removeAllObjects()
+            phoneList.removeAllObjects()
+//            print(contactList)
+//            print(phoneList)
+     
+     
         
-        sqlite3_reset(deleteStatement);
-        sqlite3_clear_bindings(deleteStatement);
+        addOutlet.enabled = true
+      
         tableView.reloadData()
         
         
@@ -246,26 +161,33 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         return cell
     }
     
-    
-    func loadContact(){
-        print("being fetched")
-        while(sqlite3_step(selectStatement) == SQLITE_ROW)
-        {
-            
-            let contact_buf = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(selectStatement, 1)))
-            let phn_buf = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(selectStatement, 2)))
-            
-            if(contact_buf != nil && phn_buf != nil){
-                contactList.addObject(contact_buf!)
-                phoneList.addObject(phn_buf!)
-                print("values fetched: \(String(contact_buf)) \(String(phn_buf))")
+    func viewContact() -> String{
+
+        var contact : Contact = Contact()
+        contact = ContactsDataBaseTable.getInstance().loadContact()
+
+        if let name = contact.name {
+            if let phone = contact.phoneNumber {
+                print ("Inside")
+                contactList.addObject(name)
+                phoneList.addObject(phone)
             }
         }
-        sqlite3_reset(selectStatement)
-        sqlite3_clear_bindings(selectStatement)
-        tableView.reloadData()
+ 
+        if (phoneList.count > 0) {
+            
+            addOutlet?.enabled = false
+            return phoneList[0] as! String
+            
+        }
+        return "Nil"
     }
     
+    func retrivePhoneNumber() -> String{
+        let phoneNumber = viewContact()
+        return phoneNumber
+    }
+        
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         name.resignFirstResponder()
         phone.resignFirstResponder()
@@ -296,10 +218,10 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         }
     }
     
-    @IBAction func returnToMainScreen(sender: AnyObject) {
-        
-        self.performSegueWithIdentifier("unwindToMainScreen", sender: self)
-    }
+//    @IBAction func returnToMainScreen(sender: AnyObject) {
+//        
+//        self.performSegueWithIdentifier("unwindToMainScreen", sender: self)
+//    }
 }
 
 
