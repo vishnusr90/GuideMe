@@ -37,9 +37,44 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     
     
     override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    
+ 
+        scrollPage.contentSize.height = 700
+//        contactList = NSMutableArray()
+//        phoneList = NSMutableArray()
+        
+        var swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
+        swipeRight.direction = UISwipeGestureRecognizerDirection.Right
+        self.view.addGestureRecognizer(swipeRight)
+        
+        name.delegate = self
+        phone.delegate = self
+        
+//        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) [0] as String
+//        
+//        print(paths)
+//        
+//        let docsDir = paths + "/contacts.sqlite"
+//        
+//        if(sqlite3_open(docsDir, &contactDB) == SQLITE_OK)
+//        {
+//            let sql = "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT,PHONE TEXT)"
+//            
+//            
+//            if(sqlite3_exec(contactDB,sql,nil,nil,nil)  !=  SQLITE_OK){
+//                print("Failed to create table")
+//                print(sqlite3_errmsg(contactDB));
+//                
+//            }
+//        }
+//        else {
+//            
+//            print("Failed to open database")
+//            print(sqlite3_errmsg(contactDB));
+//            
+//        }
+//        
+//        prepareStartment();
+//        
         tableView.delegate = self
         tableView.dataSource = self
         viewContact()
@@ -58,6 +93,8 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         contactList.addObject(contact.name!)
         phoneList.addObject(contact.phoneNumber!)
         status.text = contact.status
+        
+        
         addOutlet.enabled = false
 
         tableView.reloadData()
@@ -77,9 +114,7 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
             contactList.addObject(contact.name!)
             phoneList.removeLastObject()
             phoneList.addObject(contact.phoneNumber!)
-//            print(phoneStr)
-//            print(phoneList)
-        
+
         tableView.reloadData()
         
     }
@@ -149,11 +184,10 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     }
     
     func retrivePhoneNumber() -> String{
-        let phone = viewContact()
-        return phone
-        
+        let phoneNumber = viewContact()
+        return phoneNumber
     }
-    
+        
     func textFieldShouldReturn(textField: UITextField) -> Bool {
         name.resignFirstResponder()
         phone.resignFirstResponder()
@@ -184,10 +218,10 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         }
     }
     
-    @IBAction func returnToMainScreen(sender: AnyObject) {
-        
-        self.performSegueWithIdentifier("unwindToMainScreen", sender: self)
-    }
+//    @IBAction func returnToMainScreen(sender: AnyObject) {
+//        
+//        self.performSegueWithIdentifier("unwindToMainScreen", sender: self)
+//    }
 }
 
 
