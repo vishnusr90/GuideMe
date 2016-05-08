@@ -106,17 +106,40 @@ class DataBaseTable {
     
     func loadData() {
         
-        let locationOne : String = "Welcome to Clementi MRT Station. Besides you is the entrance. Please use the escalator"
-        let locationTwo : String = "You have reached the crossing. On your left is the passenger service centre. On your right "
+        let entrance : String = "Welcome to Clementi MRT Station. Besides you is the entrance. Please use the escalator"
+        let crossing : String = "You have reached the crossing. On your left is the passenger service centre. On your right is the elevator"
+        let seven_eleven : String = "On your right is the seven eleven store"
+        let barrier : String = "You are approaching the barrier. Please swipe your card"
+        
+        
         sqlite3_bind_int(insertStatement, 1, Int32(10))
         sqlite3_bind_text(insertStatement, 2, "Entrance", -1, SQLITE_TRANSIENT)
-        sqlite3_bind_text(insertStatement, 3, locationOne, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(insertStatement, 3, entrance, -1, SQLITE_TRANSIENT)
         sqlite3_bind_text(insertStatement, 4, "entrance", -1, SQLITE_TRANSIENT)
         
         
         if(sqlite3_step(insertStatement) ==  SQLITE_DONE) {
             
-            print("Successfully inserted")
+            print("Successfully inserted beacon 1")
+            
+        }else {
+            
+            print("Failed to add beacon")
+            print("Error code: ", sqlite3_errcode(contactDB))
+            let error = String.fromCString(sqlite3_errmsg(contactDB))
+            print("Error msg in create: ", error)
+        }
+        
+        sqlite3_reset(insertStatement)
+    
+        sqlite3_bind_int(insertStatement, 1, Int32(15))
+        sqlite3_bind_text(insertStatement, 2, "Seven - Eleven store", -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(insertStatement, 3, seven_eleven, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(insertStatement, 4, "7-11", -1, SQLITE_TRANSIENT)
+        
+        if(sqlite3_step(insertStatement) ==  SQLITE_DONE) {
+            
+            print("Successfully inserted beacon 2")
             
         }else {
             
@@ -128,14 +151,35 @@ class DataBaseTable {
         
         sqlite3_reset(insertStatement)
         
-        sqlite3_bind_int(insertStatement, 1, Int32(15))
+        sqlite3_reset(insertStatement)
+        
+        sqlite3_bind_int(insertStatement, 1, Int32(20))
+        sqlite3_bind_text(insertStatement, 2, "Barrier", -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(insertStatement, 3, barrier, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(insertStatement, 4, "barrier", -1, SQLITE_TRANSIENT)
+        
+        if(sqlite3_step(insertStatement) ==  SQLITE_DONE) {
+            
+            print("Successfully inserted beacon 3")
+            
+        }else {
+            
+            print("Failed to add beacon")
+            print("Error code: ", sqlite3_errcode(contactDB))
+            let error = String.fromCString(sqlite3_errmsg(contactDB))
+            print("Error msg in create: ", error)
+        }
+        
+        sqlite3_reset(insertStatement)
+        
+        sqlite3_bind_int(insertStatement, 1, Int32(25))
         sqlite3_bind_text(insertStatement, 2, "Elevator", -1, SQLITE_TRANSIENT)
-        sqlite3_bind_text(insertStatement, 3, locationTwo, -1, SQLITE_TRANSIENT)
+        sqlite3_bind_text(insertStatement, 3, crossing, -1, SQLITE_TRANSIENT)
         sqlite3_bind_text(insertStatement, 4, "elevator", -1, SQLITE_TRANSIENT)
         
         if(sqlite3_step(insertStatement) ==  SQLITE_DONE) {
             
-            print("Successfully inserted")
+            print("Successfully inserted beacon 4")
             
         }else {
             
@@ -146,6 +190,7 @@ class DataBaseTable {
         }
         
         sqlite3_reset(insertStatement)
+        
         sqlite3_clear_bindings(insertStatement)
 
     }
