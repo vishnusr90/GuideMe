@@ -73,15 +73,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FFJ-fK-rsp">
-                                <rect key="frame" x="188" y="531" width="167" height="122"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="36"/>
-                                <state key="normal" title="Replay"/>
-                                <connections>
-                                    <action selector="replayMessage:" destination="5PA-QH-G3M" eventType="touchUpInside" id="334-qP-lDr"/>
-                                </connections>
-                            </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jeW-oz-sR0">
                                 <rect key="frame" x="20" y="20" width="335" height="503"/>
                             </imageView>
@@ -89,7 +80,7 @@
                                 <rect key="frame" x="20" y="531" width="167" height="122"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="36"/>
-                                <state key="normal" title="Call"/>
+                                <state key="normal" title="Cal"/>
                                 <connections>
                                     <action selector="sendSMS:" destination="5PA-QH-G3M" eventType="touchUpInside" id="m3w-SA-inN"/>
                                 </connections>
@@ -100,13 +91,20 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FFJ-fK-rsp">
+                                <rect key="frame" x="188" y="531" width="167" height="122"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" weight="black" pointSize="36"/>
+                                <state key="normal" title="Replay"/>
+                                <connections>
+                                    <action selector="replayMessage:" destination="5PA-QH-G3M" eventType="touchUpInside" id="334-qP-lDr"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="FFJ-fK-rsp" firstAttribute="top" secondItem="jcY-vc-QeX" secondAttribute="bottom" constant="470" id="7xK-yZ-lEM"/>
                             <constraint firstAttribute="trailingMargin" secondItem="FFJ-fK-rsp" secondAttribute="trailing" id="B9e-o7-tPy"/>
                             <constraint firstItem="voF-2b-MV6" firstAttribute="top" secondItem="FFJ-fK-rsp" secondAttribute="bottom" constant="14" id="BVl-dw-0jl"/>
-                            <constraint firstItem="QbI-Wl-fAZ" firstAttribute="top" secondItem="jcY-vc-QeX" secondAttribute="bottom" constant="470" id="HZb-hL-MmY"/>
                             <constraint firstAttribute="leadingMargin" secondItem="jeW-oz-sR0" secondAttribute="leading" id="Icd-4b-hwf"/>
                             <constraint firstItem="QbI-Wl-fAZ" firstAttribute="width" secondItem="FFJ-fK-rsp" secondAttribute="width" id="V1e-KJ-xoV"/>
                             <constraint firstAttribute="trailingMargin" secondItem="jeW-oz-sR0" secondAttribute="trailing" id="cz8-Oi-aoc"/>
@@ -342,6 +340,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="W6P-lP-JVD"/>
+        <segue reference="NY0-ue-5A0"/>
     </inferredMetricsTieBreakers>
 </document>
