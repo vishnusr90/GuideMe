@@ -24,8 +24,18 @@ class BeepSound {
     
     func playBeep() {
         
+        play("notify")
+    }
+    
+    func palyError() {
+        
+        play("error")
+    }
+    
+    func play(file :String) {
+        
         do {
-            if let bundle = NSBundle.mainBundle().pathForResource("notify", ofType: "mp3") {
+            if let bundle = NSBundle.mainBundle().pathForResource(file, ofType: "mp3") {
                 let alertSound = NSURL(fileURLWithPath: bundle)
                 try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
                 try AVAudioSession.sharedInstance().setActive(true)
@@ -36,10 +46,7 @@ class BeepSound {
         } catch {
             print("Error")
         }
-        
     }
-    
-    
     
     
 }
