@@ -40,7 +40,7 @@ class ContactsDataBaseTable {
         
                 print(paths)
         
-                let docsDir = paths + "/contacts.sqlite"
+                let docsDir = paths + "/guideME.sqlite"
         
                 if(sqlite3_open(docsDir, &contactDB) == SQLITE_OK)
                 {
@@ -198,14 +198,14 @@ class ContactsDataBaseTable {
     func loadContact() -> Contact {
         
         let contact : Contact = Contact()
-        print("being fetched")
+        
         while(sqlite3_step(selectStatement) == SQLITE_ROW)
         {
-            print("being fetched1")
+            
             let contact_buf = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(selectStatement, 1)))
             let phn_buf = String.fromCString(UnsafePointer<CChar>(sqlite3_column_text(selectStatement, 2)))
             if(contact_buf != nil && phn_buf != nil){
-                print("being fetched2")
+                
                 contact.name = contact_buf
                 contact.phoneNumber = phn_buf
                 contact.status = "Contact added"

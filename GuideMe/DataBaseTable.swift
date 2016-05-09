@@ -34,7 +34,7 @@ class DataBaseTable {
         
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
         print("Paths : " + paths)
-        let docsDir = paths + "/beacon.sqlite"
+        let docsDir = paths + "/guideME.sqlite"
  
         
         if (sqlite3_open(docsDir, &beaconDB) == SQLITE_OK) {
