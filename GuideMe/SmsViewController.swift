@@ -21,8 +21,9 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     @IBOutlet weak var status: UILabel!
     
     
+    @IBOutlet weak var updateOutlet: UIButton!
     @IBOutlet weak var addOutlet: UIButton!
-    
+    @IBOutlet weak var deleteOutlet: UIButton!
     var contactDB : COpaquePointer = nil;
     
     var insertStatement : COpaquePointer = nil;
@@ -39,28 +40,28 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     override func viewDidLoad() {
  
         scrollPage.contentSize.height = 700
-//        contactList = NSMutableArray()
-//        phoneList = NSMutableArray()
-        
         var swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
         
         name.delegate = self
         phone.delegate = self
-        
+        addOutlet.enabled = false
+        updateOutlet.enabled = false
+        deleteOutlet.enabled = false
+
         tableView.delegate = self
         tableView.dataSource = self
         viewContact()
-      
+        
     }
-    
     
     @IBAction func createContact(sender: AnyObject) {
         
         let nameStr = name.text as NSString?
         
         let phoneStr = phone.text as NSString?
+        
         var contact : Contact = Contact()
         
         contact =  ContactsDataBaseTable.getInstance().createContact(nameStr!,phone: phoneStr!)
@@ -68,11 +69,15 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         phoneList.addObject(contact.phoneNumber!)
         status.text = contact.status
         
-        name.text = ""
-        phone.text = ""
+        name.text = nil
+        phone.text = nil
         addOutlet.enabled = false
+        updateOutlet.enabled = false
+        deleteOutlet.enabled = false
 
         tableView.reloadData()
+      
+        
 
     }
     
@@ -80,6 +85,8 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         let nameStr = name.text as NSString?
         
         let phoneStr = phone.text as NSString?
+        
+
         var contact : Contact = Contact()
         
         contact = ContactsDataBaseTable.getInstance().updateContact(nameStr!, phone: phoneStr!)
@@ -90,8 +97,11 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
             phoneList.removeLastObject()
             phoneList.addObject(contact.phoneNumber!)
 
-        name.text = ""
-        phone.text = ""
+        name.text = nil
+        phone.text = nil
+        addOutlet.enabled = false
+        updateOutlet.enabled = false
+        deleteOutlet.enabled = false
         tableView.reloadData()
         
     }
@@ -99,6 +109,7 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     @IBAction func deleteContact(sender: AnyObject) {
         let nameStr = name.text as NSString?
         let phoneStr = phone.text as NSString?
+
         var contact : Contact = Contact()
         contact = ContactsDataBaseTable.getInstance().deleteContact(nameStr!, phone: phoneStr!)
 
@@ -109,9 +120,11 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
 //            print(phoneList)
      
      
-        name.text = ""
-        phone.text = ""
-        addOutlet.enabled = true
+        name.text = nil
+        phone.text = nil
+        addOutlet.enabled = false
+        deleteOutlet.enabled = false
+        updateOutlet.enabled = false
       
         tableView.reloadData()
         
@@ -136,19 +149,20 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         let phone = phoneList[indexPath.row] as! String
         cell.textLabel?.text = contact
         cell.detailTextLabel?.text = phone
+        print(contactList)
+        print(phoneList)
         return cell
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
         let selectName = contactList[indexPath.row] as! String
         let selectPhoneNumber = phoneList[indexPath.row] as! String
         name.text = selectName
         phone.text = selectPhoneNumber
+        deleteOutlet.enabled = true
+        updateOutlet.enabled = true
         
     }
-    
-    
     
     func viewContact() -> String{
 
@@ -162,15 +176,16 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
                 phoneList.addObject(phone)
             }
         }
- 
         if (phoneList.count > 0) {
-            
             addOutlet?.enabled = false
+            deleteOutlet?.enabled = false
+            updateOutlet?.enabled = false
             return phoneList[0] as! String
             
         }
         return "Nil"
     }
+    
     
     func retrivePhoneNumber() -> String{
         let phoneNumber = viewContact()
@@ -184,6 +199,8 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     }
     
     func textFieldDidEndEditing(textField: UITextField) {
+       
+        addOutlet.enabled = true
         name.resignFirstResponder()
         phone.resignFirstResponder()
     }
