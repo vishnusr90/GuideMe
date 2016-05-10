@@ -167,17 +167,13 @@ class ContactsDataBaseTable {
     func deleteContact(name : NSString, phone : NSString) -> Contact {
   
         let contact : Contact = Contact()
-        
-        let nameStr = name
-        
-        let phoneStr = phone
+
         
         sqlite3_bind_text(deleteStatement, 1, nil, -1, SQLITE_TRANSIENT);
         
         
         if(sqlite3_step(deleteStatement) == SQLITE_DONE){
-            contact.name = name as String
-            contact.phoneNumber = phone as String
+
             contact.status = "Contact Deleted"
         }
         else {

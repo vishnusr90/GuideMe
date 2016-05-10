@@ -43,13 +43,6 @@
 			remoteGlobalIDString = 3F02C4CA1CD934D90034141A;
 			remoteInfo = GuideMe;
 		};
-		3F2A2F0D1CE1D6F800CC4C4F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3F02C4C31CD934D90034141A /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3F02C4CA1CD934D90034141A;
-			remoteInfo = GuideMe;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -76,7 +69,6 @@
 		3F030C111CDD9539002932C2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		3F030C131CDD9540002932C2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		3F09A0AC1CDDD5FB0009A39C /* SmsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmsViewController.swift; sourceTree = "<group>"; };
-		3F2A2F081CE1D6F800CC4C4F /* SmsViewControllerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SmsViewControllerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F5F3C3D1CDBE5D200DBFB13 /* BeaconViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeaconViewController.swift; sourceTree = "<group>"; };
 		3FF9379B1CDFA3BE00267F30 /* ContactsDataBaseTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactsDataBaseTable.swift; sourceTree = "<group>"; };
 		3FF9379D1CDFAD6B00267F30 /* Contact.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
@@ -106,13 +98,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3F2A2F051CE1D6F800CC4C4F /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -136,7 +121,6 @@
 				3F02C4CB1CD934D90034141A /* GuideMe.app */,
 				3F02C4DF1CD934D90034141A /* GuideMeTests.xctest */,
 				3F02C4EA1CD934DA0034141A /* GuideMeUITests.xctest */,
-				3F2A2F081CE1D6F800CC4C4F /* SmsViewControllerTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -261,24 +245,6 @@
 			productReference = 3F02C4EA1CD934DA0034141A /* GuideMeUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		3F2A2F071CE1D6F800CC4C4F /* SmsViewControllerTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3F2A2F0F1CE1D6F800CC4C4F /* Build configuration list for PBXNativeTarget "SmsViewControllerTests" */;
-			buildPhases = (
-				3F2A2F041CE1D6F800CC4C4F /* Sources */,
-				3F2A2F051CE1D6F800CC4C4F /* Frameworks */,
-				3F2A2F061CE1D6F800CC4C4F /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3F2A2F0E1CE1D6F800CC4C4F /* PBXTargetDependency */,
-			);
-			name = SmsViewControllerTests;
-			productName = SmsViewControllerTests;
-			productReference = 3F2A2F081CE1D6F800CC4C4F /* SmsViewControllerTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -301,10 +267,6 @@
 						CreatedOnToolsVersion = 7.3;
 						TestTargetID = 3F02C4CA1CD934D90034141A;
 					};
-					3F2A2F071CE1D6F800CC4C4F = {
-						CreatedOnToolsVersion = 7.3;
-						TestTargetID = 3F02C4CA1CD934D90034141A;
-					};
 				};
 			};
 			buildConfigurationList = 3F02C4C61CD934D90034141A /* Build configuration list for PBXProject "GuideMe" */;
@@ -323,7 +285,6 @@
 				3F02C4CA1CD934D90034141A /* GuideMe */,
 				3F02C4DE1CD934D90034141A /* GuideMeTests */,
 				3F02C4E91CD934D90034141A /* GuideMeUITests */,
-				3F2A2F071CE1D6F800CC4C4F /* SmsViewControllerTests */,
 			);
 		};
 /* End PBXProject section */
@@ -348,13 +309,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3F02C4E81CD934D90034141A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3F2A2F061CE1D6F800CC4C4F /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -398,13 +352,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		3F2A2F041CE1D6F800CC4C4F /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -417,11 +364,6 @@
 			isa = PBXTargetDependency;
 			target = 3F02C4CA1CD934D90034141A /* GuideMe */;
 			targetProxy = 3F02C4EB1CD934DA0034141A /* PBXContainerItemProxy */;
-		};
-		3F2A2F0E1CE1D6F800CC4C4F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3F02C4CA1CD934D90034141A /* GuideMe */;
-			targetProxy = 3F2A2F0D1CE1D6F800CC4C4F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -595,30 +537,6 @@
 			};
 			name = Release;
 		};
-		3F2A2F101CE1D6F800CC4C4F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = SmsViewControllerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = sg.edu.nus.iss.wlad.SmsViewControllerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GuideMe.app/GuideMe";
-			};
-			name = Debug;
-		};
-		3F2A2F111CE1D6F800CC4C4F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = SmsViewControllerTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = sg.edu.nus.iss.wlad.SmsViewControllerTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GuideMe.app/GuideMe";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -657,14 +575,6 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
-		};
-		3F2A2F0F1CE1D6F800CC4C4F /* Build configuration list for PBXNativeTarget "SmsViewControllerTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3F2A2F101CE1D6F800CC4C4F /* Debug */,
-				3F2A2F111CE1D6F800CC4C4F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

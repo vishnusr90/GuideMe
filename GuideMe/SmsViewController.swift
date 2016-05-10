@@ -24,6 +24,7 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     @IBOutlet weak var updateOutlet: UIButton!
     @IBOutlet weak var addOutlet: UIButton!
     @IBOutlet weak var deleteOutlet: UIButton!
+    
     var contactDB : COpaquePointer = nil;
     
     var insertStatement : COpaquePointer = nil;
@@ -40,7 +41,7 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     override func viewDidLoad() {
  
         scrollPage.contentSize.height = 700
-        var swipeRight = UISwipeGestureRecognizer(target: self, action: "respondToSwipeGesture:")
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(SmsViewController.respondToSwipeGesture(_:)))
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
         
@@ -116,8 +117,7 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
             status.text = contact.status
             contactList.removeAllObjects()
             phoneList.removeAllObjects()
-//            print(contactList)
-//            print(phoneList)
+
      
      
         name.text = nil
@@ -207,7 +207,6 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     func respondToSwipeGesture(gesture: UIGestureRecognizer) {
@@ -223,11 +222,6 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
             }
         }
     }
-    
-//    @IBAction func returnToMainScreen(sender: AnyObject) {
-//        
-//        self.performSegueWithIdentifier("unwindToMainScreen", sender: self)
-//    }
 }
 
 
