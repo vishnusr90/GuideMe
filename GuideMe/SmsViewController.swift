@@ -49,32 +49,6 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         name.delegate = self
         phone.delegate = self
         
-//        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) [0] as String
-//        
-//        print(paths)
-//        
-//        let docsDir = paths + "/contacts.sqlite"
-//        
-//        if(sqlite3_open(docsDir, &contactDB) == SQLITE_OK)
-//        {
-//            let sql = "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT,PHONE TEXT)"
-//            
-//            
-//            if(sqlite3_exec(contactDB,sql,nil,nil,nil)  !=  SQLITE_OK){
-//                print("Failed to create table")
-//                print(sqlite3_errmsg(contactDB));
-//                
-//            }
-//        }
-//        else {
-//            
-//            print("Failed to open database")
-//            print(sqlite3_errmsg(contactDB));
-//            
-//        }
-//        
-//        prepareStartment();
-//        
         tableView.delegate = self
         tableView.dataSource = self
         viewContact()
@@ -94,7 +68,8 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         phoneList.addObject(contact.phoneNumber!)
         status.text = contact.status
         
-        
+        name.text = ""
+        phone.text = ""
         addOutlet.enabled = false
 
         tableView.reloadData()
@@ -115,6 +90,8 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
             phoneList.removeLastObject()
             phoneList.addObject(contact.phoneNumber!)
 
+        name.text = ""
+        phone.text = ""
         tableView.reloadData()
         
     }
@@ -132,7 +109,8 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
 //            print(phoneList)
      
      
-        
+        name.text = ""
+        phone.text = ""
         addOutlet.enabled = true
       
         tableView.reloadData()
@@ -160,6 +138,17 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         cell.detailTextLabel?.text = phone
         return cell
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath){
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        let selectName = contactList[indexPath.row] as! String
+        let selectPhoneNumber = phoneList[indexPath.row] as! String
+        name.text = selectName
+        phone.text = selectPhoneNumber
+        
+    }
+    
+    
     
     func viewContact() -> String{
 
