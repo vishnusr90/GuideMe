@@ -186,7 +186,7 @@
                                         <rect key="frame" x="67" y="450" width="240" height="115"/>
                                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
-                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="6hB-Cm-rc3" detailTextLabel="ZMj-lj-eDZ" rowHeight="89" style="IBUITableViewCellStyleSubtitle" id="NDf-S9-UWl">
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="gray" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="6hB-Cm-rc3" detailTextLabel="ZMj-lj-eDZ" rowHeight="89" style="IBUITableViewCellStyleSubtitle" id="NDf-S9-UWl">
                                                 <rect key="frame" x="0.0" y="28" width="240" height="89"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="NDf-S9-UWl" id="Df0-Ew-tLk">
@@ -340,6 +340,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="NY0-ue-5A0"/>
+        <segue reference="W6P-lP-JVD"/>
     </inferredMetricsTieBreakers>
 </document>
