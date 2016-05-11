@@ -27,7 +27,7 @@ class BeepSound {
         play("notify")
     }
     
-    func palyError() {
+    func playError() {
         
         play("error")
     }

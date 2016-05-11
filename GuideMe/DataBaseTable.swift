@@ -33,7 +33,6 @@ class DataBaseTable {
     func createTable() {
         
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        print("Paths : " + paths)
         let docsDir = paths + "/guideME.sqlite"
  
         
@@ -108,7 +107,7 @@ class DataBaseTable {
         
         let entrance : String = "Welcome to Clementi MRT Station. Besides you is the entrance. Please use the escalator"
         let crossing : String = "You have reached the crossing. On your left is the passenger service centre. On your right is the elevator"
-        let seven_eleven : String = "On your right is the seven eleven store"
+        let seven_eleven : String = "On your left is the seven eleven store"
         let barrier : String = "You are approaching the barrier. Please swipe your card"
         
         
@@ -120,11 +119,10 @@ class DataBaseTable {
         
         if(sqlite3_step(insertStatement) ==  SQLITE_DONE) {
             
-            print("Successfully inserted beacon 1")
             
         }else {
             
-            print("Failed to add beacon")
+
             print("Error code: ", sqlite3_errcode(beaconDB))
             let error = String.fromCString(sqlite3_errmsg(beaconDB))
             print("Error msg in create: ", error)
@@ -139,7 +137,7 @@ class DataBaseTable {
         
         if(sqlite3_step(insertStatement) ==  SQLITE_DONE) {
             
-            print("Successfully inserted beacon 2")
+           
             
         }else {
             
@@ -160,7 +158,7 @@ class DataBaseTable {
         
         if(sqlite3_step(insertStatement) ==  SQLITE_DONE) {
             
-            print("Successfully inserted beacon 3")
+            
             
         }else {
             
@@ -179,7 +177,7 @@ class DataBaseTable {
         
         if(sqlite3_step(insertStatement) ==  SQLITE_DONE) {
             
-            print("Successfully inserted beacon 4")
+            
             
         }else {
             

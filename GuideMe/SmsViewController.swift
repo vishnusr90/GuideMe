@@ -2,7 +2,7 @@
 //  SmsViewController.swift
 //  GuideMe
 //
-//  Created by student on 7/5/16.
+//  Created by Ankan Das on 7/5/16.
 //  Copyright © 2016 ISS. All rights reserved.
 //
 
@@ -24,19 +24,7 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     @IBOutlet weak var updateOutlet: UIButton!
     @IBOutlet weak var addOutlet: UIButton!
     @IBOutlet weak var deleteOutlet: UIButton!
-    
-    var contactDB : COpaquePointer = nil;
-    
-    var insertStatement : COpaquePointer = nil;
-    var selectStatement : COpaquePointer = nil;
-    var updateStatement : COpaquePointer = nil;
-    var deleteStatement : COpaquePointer = nil;
-    
-    let SQLITE_TRANSIENT = unsafeBitCast(-1, sqlite3_destructor_type.self)
-    
-    
-    
-    
+
     
     override func viewDidLoad() {
  
@@ -60,9 +48,7 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     @IBAction func createContact(sender: AnyObject) {
         
         let nameStr = name.text as NSString?
-        
-        let phoneStr = phone.text as NSString?
-        
+        let phoneStr = phone.text
         var contact : Contact = Contact()
         
         contact =  ContactsDataBaseTable.getInstance().createContact(nameStr!,phone: phoneStr!)
@@ -75,14 +61,20 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         addOutlet.enabled = false
         updateOutlet.enabled = false
         deleteOutlet.enabled = false
-
+        name.resignFirstResponder()
+        phone.resignFirstResponder()
         tableView.reloadData()
-      
-        
-
+    
     }
     
     @IBAction func updateContact(sender: AnyObject) {
+        
+        if ((name.text == nil && phone.text == nil) || name.text == "" || phone.text == ""){
+            updateOutlet.enabled = false
+            name.resignFirstResponder()
+            phone.resignFirstResponder()
+            return
+        }
         let nameStr = name.text as NSString?
         
         let phoneStr = phone.text as NSString?
@@ -92,43 +84,39 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         
         contact = ContactsDataBaseTable.getInstance().updateContact(nameStr!, phone: phoneStr!)
       
-            status.text = contact.status
-            contactList.removeLastObject()
-            contactList.addObject(contact.name!)
-            phoneList.removeLastObject()
-            phoneList.addObject(contact.phoneNumber!)
+        status.text = contact.status
+        contactList.removeLastObject()
+        contactList.addObject(contact.name!)
+        phoneList.removeLastObject()
+        phoneList.addObject(contact.phoneNumber!)
 
         name.text = nil
         phone.text = nil
         addOutlet.enabled = false
         updateOutlet.enabled = false
         deleteOutlet.enabled = false
+        name.resignFirstResponder()
+        phone.resignFirstResponder()
         tableView.reloadData()
         
     }
     
     @IBAction func deleteContact(sender: AnyObject) {
+        
         let nameStr = name.text as NSString?
         let phoneStr = phone.text as NSString?
 
         var contact : Contact = Contact()
         contact = ContactsDataBaseTable.getInstance().deleteContact(nameStr!, phone: phoneStr!)
 
-            status.text = contact.status
-            contactList.removeAllObjects()
-            phoneList.removeAllObjects()
+        status.text = contact.status
+        contactList.removeAllObjects()
+        phoneList.removeAllObjects()
 
-     
-     
-        name.text = nil
-        phone.text = nil
         addOutlet.enabled = false
         deleteOutlet.enabled = false
         updateOutlet.enabled = false
-      
         tableView.reloadData()
-        
-        
     }
     
     @IBOutlet weak var tableView: UITableView!
@@ -171,7 +159,6 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
 
         if let name = contact.name {
             if let phone = contact.phoneNumber {
-                print ("Inside")
                 contactList.addObject(name)
                 phoneList.addObject(phone)
             }
@@ -193,16 +180,47 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     }
         
     func textFieldShouldReturn(textField: UITextField) -> Bool {
+        
         name.resignFirstResponder()
         phone.resignFirstResponder()
         return true
     }
     
+    func textFieldShouldBeginEditing(textField: UITextField) -> Bool {
+        
+        if (textField.tag == 100){
+            TextToVoice.getInstance().textToVoice("Please enter the name")
+        }
+        
+        if (textField.tag == 200){
+            TextToVoice.getInstance().textToVoice("Please enter the number")
+        }
+
+        if phoneList.count > 0 {
+            addOutlet.enabled = false
+            
+        }else{
+            addOutlet.enabled = true
+        }
+
+        return true
+    }
+    
     func textFieldDidEndEditing(textField: UITextField) {
-       
+        
+        
+        if ((name.text == nil && phone.text == nil) || name.text == "" || phone.text == ""){
+           addOutlet.enabled = false
+           return
+        }
+
         addOutlet.enabled = true
-        name.resignFirstResponder()
-        phone.resignFirstResponder()
+        if phoneList.count > 0 {
+            addOutlet.enabled = false
+        }else{
+            addOutlet.enabled = true
+        }
+
     }
 
     override func didReceiveMemoryWarning() {
@@ -215,9 +233,10 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
             
             switch swipeGesture.direction {
                 
-            case UISwipeGestureRecognizerDirection.Right:
-                self.performSegueWithIdentifier("mainScreen", sender: self)
-            default:
+                case UISwipeGestureRecognizerDirection.Right:
+                self.performSegueWithIdentifier("setupScreen", sender: self)
+                
+                default:
                 break
             }
         }

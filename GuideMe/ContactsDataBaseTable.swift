@@ -19,6 +19,8 @@ class ContactsDataBaseTable {
     var selectStatement : COpaquePointer = nil;
     var updateStatement : COpaquePointer = nil;
     var deleteStatement : COpaquePointer = nil;
+    var selectCountStatement : COpaquePointer = nil;
+
     
     var status : String = ""
     
@@ -36,35 +38,31 @@ class ContactsDataBaseTable {
     
     func createContactTable(){
         
-                let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) [0] as String
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true) [0] as String
+        let docsDir = paths + "/guideME.sqlite"
         
-                print(paths)
-        
-                let docsDir = paths + "/guideME.sqlite"
-        
-                if(sqlite3_open(docsDir, &contactDB) == SQLITE_OK)
-                {
-                    let sql = "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT,PHONE TEXT)"
+        if(sqlite3_open(docsDir, &contactDB) == SQLITE_OK)
+        {
+            let sql = "CREATE TABLE IF NOT EXISTS CONTACTS (ID INTEGER PRIMARY KEY AUTOINCREMENT, NAME TEXT,PHONE TEXT)"
         
         
-                    if(sqlite3_exec(contactDB,sql,nil,nil,nil)  !=  SQLITE_OK){
-                        print("Failed to create table")
-                        print(sqlite3_errmsg(contactDB));
-        
-                    }
-                }
-                else {
-        
-                    print("Failed to open database")
-                    print(sqlite3_errmsg(contactDB));
-        
-                }
-        
-                prepareStartment();
-
+            if(sqlite3_exec(contactDB,sql,nil,nil,nil)  !=  SQLITE_OK){
+                print("Failed to create table")
+                print(sqlite3_errmsg(contactDB));
         
             }
+        }
+        else {
+        
+            print("Failed to open database")
+            print(sqlite3_errmsg(contactDB));
+        
+        }
+        prepareStartment()
+    }
+    
     func prepareStartment() {
+        
         var sqlString : String
         sqlString = "INSERT INTO CONTACTS (name,phone) VALUES (?,?)"
         var cSql = sqlString.cStringUsingEncoding(NSUTF8StringEncoding)
@@ -86,6 +84,9 @@ class ContactsDataBaseTable {
         cSql = sqlString.cStringUsingEncoding(NSUTF8StringEncoding)
         sqlite3_prepare_v2(contactDB,cSql!,-1,&selectStatement,nil)
         
+        sqlString = "SELECT count(*) FROM CONTACTS"
+        cSql = sqlString.cStringUsingEncoding(NSUTF8StringEncoding)
+        sqlite3_prepare_v2(contactDB,cSql!,-1,&selectCountStatement,nil)
         
     }
   
@@ -112,6 +113,7 @@ class ContactsDataBaseTable {
              contact.name = name as String
              contact.phoneNumber = phone as String
              contact.status = "Contact added"
+             TextToVoice.getInstance().textToVoice(contact.status!)
         }
             
         else {
@@ -119,7 +121,6 @@ class ContactsDataBaseTable {
             contact.status = "Failed to add contact";
             print("Error Code: ", sqlite3_errcode (contactDB));
             let error = String.fromCString(sqlite3_errmsg(contactDB));
-            print("Error msg: ",error);
         }
         
         sqlite3_reset(insertStatement);
@@ -149,6 +150,7 @@ class ContactsDataBaseTable {
             contact.name = name as String
             contact.phoneNumber = phone as String
             contact.status = "Contact Updated"
+            TextToVoice.getInstance().textToVoice(contact.status!)
             
         }
         else {
@@ -156,7 +158,6 @@ class ContactsDataBaseTable {
             contact.status = "Failed to update contact";
             print("Error Code: ", sqlite3_errcode (contactDB));
             let error = String.fromCString(sqlite3_errmsg(contactDB));
-            print("Error msg: ",error);
         }
         sqlite3_reset(updateStatement);
         sqlite3_clear_bindings(updateStatement);
@@ -175,12 +176,12 @@ class ContactsDataBaseTable {
         if(sqlite3_step(deleteStatement) == SQLITE_DONE){
 
             contact.status = "Contact Deleted"
+            TextToVoice.getInstance().textToVoice(contact.status!)
         }
         else {
             contact.status = "Failed to delete contact";
             print("Error code: ",sqlite3_errcode(contactDB));
             let error = String.fromCString(sqlite3_errmsg(contactDB));
-            print("Error msg: ", error);
         }
         
         sqlite3_reset(deleteStatement);
@@ -204,11 +205,14 @@ class ContactsDataBaseTable {
                 
                 contact.name = contact_buf
                 contact.phoneNumber = phn_buf
-                contact.status = "Contact added"
+
             }
         }
         sqlite3_reset(selectStatement)
         sqlite3_clear_bindings(selectStatement)
         return contact
     }
+    
+
+    
 }

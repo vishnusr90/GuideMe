@@ -76,12 +76,6 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jeW-oz-sR0">
                                 <rect key="frame" x="20" y="20" width="335" height="503"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P8B-1W-ihC">
-                                <rect key="frame" x="27" y="-1" width="322" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleAspectFit" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FFJ-fK-rsp">
                                 <rect key="frame" x="188" y="531" width="167" height="122"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -122,7 +116,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="screenImage" destination="jeW-oz-sR0" id="dCI-lo-OKD"/>
-                        <outlet property="status" destination="P8B-1W-ihC" id="Red-7N-4wA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jYX-BZ-oSN" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -156,16 +149,10 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Phone Number" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gDk-bp-OlW">
-                                        <rect key="frame" x="13" y="154" width="348" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
-                                    </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jo6-J7-1NK">
+                                    <textField opaque="NO" clipsSubviews="YES" tag="100" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Name" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="jo6-J7-1NK">
                                         <rect key="frame" x="13" y="94" width="348" height="30"/>
                                         <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="namePhonePad"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="namePhonePad" enablesReturnKeyAutomatically="YES"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7aV-WC-LKl">
                                         <rect key="frame" x="248" y="283" width="113" height="85"/>
@@ -255,6 +242,12 @@
                                             <action selector="createContact:" destination="a4g-65-pp6" eventType="touchUpInside" id="Bfl-Dg-fuQ"/>
                                         </connections>
                                     </button>
+                                    <textField opaque="NO" clipsSubviews="YES" tag="200" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Phone Number" borderStyle="roundedRect" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gDk-bp-OlW">
+                                        <rect key="frame" x="13" y="154" width="348" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="18"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad" enablesReturnKeyAutomatically="YES"/>
+                                    </textField>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="qdC-Id-rAC" firstAttribute="width" secondItem="wcH-u4-Gov" secondAttribute="width" id="N6T-9Y-d9g"/>
@@ -301,33 +294,14 @@
                         <outlet property="updateOutlet" destination="wcH-u4-Gov" id="qm5-mm-9Z3"/>
                     </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="wAW-0W-oDl" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <swipeGestureRecognizer direction="right" id="Uui-xy-0Ut">
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="modal" identifier="mainScreen" modalTransitionStyle="flipHorizontal" id="W6P-lP-JVD"/>
+                        <segue destination="jc2-s1-7rW" kind="modal" identifier="setupScreen" modalTransitionStyle="flipHorizontal" id="yCo-bB-q1J"/>
                     </connections>
                 </swipeGestureRecognizer>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wAW-0W-oDl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-17.5" y="-961.5"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="Sji-Bs-4hH">
-            <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="vJd-2k-Zab" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="rdQ-HO-66e">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="a4g-65-pp6" kind="relationship" relationship="rootViewController" id="efV-dA-CrW"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hX2-Ez-YYC" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-480.5" y="660.5"/>
+            <point key="canvasLocation" x="486.5" y="-915.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1nV-y9-6Sj">
@@ -348,8 +322,113 @@
             </objects>
             <point key="canvasLocation" x="-991.5" y="-78.5"/>
         </scene>
+        <!--Display View Controller-->
+        <scene sceneID="0gf-x9-Re8">
+            <objects>
+                <viewController storyboardIdentifier="displayViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tJy-7H-Tfi" customClass="DisplayViewController" customModule="GuideMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="oae-Gn-rNs"/>
+                        <viewControllerLayoutGuide type="bottom" id="0pO-PT-X4d"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="u45-pb-3cP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" maximumValueImage="bright" translatesAutoresizingMaskIntoConstraints="NO" id="JXc-ME-H1y">
+                                <rect key="frame" x="45" y="247" width="284" height="225"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="minimumTrackTintColor" red="1" green="0.4048125434" blue="0.22981215150000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="maximumTrackTintColor" red="0.573629006" green="0.8195142473" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="changeBrightness:" destination="tJy-7H-Tfi" eventType="valueChanged" id="UWi-u9-NU4"/>
+                                </connections>
+                            </slider>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JXc-ME-H1y" firstAttribute="centerY" secondItem="u45-pb-3cP" secondAttribute="centerY" id="krL-yA-VSH"/>
+                            <constraint firstItem="JXc-ME-H1y" firstAttribute="centerX" secondItem="u45-pb-3cP" secondAttribute="centerX" id="nAa-Vy-FRw"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="brightnessSlider" destination="JXc-ME-H1y" id="zdo-xP-Vmw"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="poJ-6v-9IJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="hgJ-cP-MzP">
+                    <connections>
+                        <segue destination="jc2-s1-7rW" kind="modal" identifier="setupScreen" modalTransitionStyle="flipHorizontal" id="jNf-Ln-wxT"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="-480.5" y="683.5"/>
+        </scene>
+        <!--Setup View Controller-->
+        <scene sceneID="ZsQ-ag-joN">
+            <objects>
+                <viewController storyboardIdentifier="setupViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jc2-s1-7rW" customClass="SetupViewController" customModule="GuideMe" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hYM-t9-j4I"/>
+                        <viewControllerLayoutGuide type="bottom" id="3eb-gp-jLu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="9uZ-8g-gYF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CTM-1m-kHY">
+                                <rect key="frame" x="20" y="20" width="335" height="290"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="39"/>
+                                <state key="normal" title="Contact">
+                                    <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="setupContact:" destination="jc2-s1-7rW" eventType="touchUpInside" id="lfd-MY-hrD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mC4-kY-3ew">
+                                <rect key="frame" x="20" y="326" width="335" height="321"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="39"/>
+                                <state key="normal" title="Brightness">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="setUpBrightness:" destination="jc2-s1-7rW" eventType="touchUpInside" id="V5H-EI-aGc"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="leadingMargin" secondItem="mC4-kY-3ew" secondAttribute="leading" id="Djv-KI-ZHx"/>
+                            <constraint firstItem="CTM-1m-kHY" firstAttribute="top" secondItem="hYM-t9-j4I" secondAttribute="bottom" id="Jsg-iY-aHC"/>
+                            <constraint firstItem="3eb-gp-jLu" firstAttribute="top" secondItem="mC4-kY-3ew" secondAttribute="bottom" constant="20" id="Q4d-aO-jee"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mC4-kY-3ew" secondAttribute="trailing" id="bN6-Zl-sq3"/>
+                            <constraint firstItem="mC4-kY-3ew" firstAttribute="top" secondItem="CTM-1m-kHY" secondAttribute="bottom" constant="4" id="bd9-cr-uFM"/>
+                            <constraint firstAttribute="leadingMargin" secondItem="CTM-1m-kHY" secondAttribute="leading" id="byl-GH-bdc"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CTM-1m-kHY" secondAttribute="trailing" id="naA-am-bx7"/>
+                            <constraint firstItem="mC4-kY-3ew" firstAttribute="height" secondItem="CTM-1m-kHY" secondAttribute="height" id="oWY-1c-EeT"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="m0T-dV-1OW"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="uwa-M8-mXI" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="SEZ-Bs-JHB">
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="modal" identifier="mainScreen" modalTransitionStyle="flipHorizontal" id="OXv-9p-FSv"/>
+                    </connections>
+                </swipeGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="6.5" y="-930.5"/>
+        </scene>
     </scenes>
+    <resources>
+        <image name="bright" width="225" height="225"/>
+    </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="W6P-lP-JVD"/>
+        <segue reference="OXv-9p-FSv"/>
+        <segue reference="yCo-bB-q1J"/>
     </inferredMetricsTieBreakers>
 </document>
