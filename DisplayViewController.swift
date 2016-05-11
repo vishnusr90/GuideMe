@@ -2,7 +2,7 @@
 //  DisplayViewController.swift
 //  GuideMe
 //
-//  Created by student on 11/5/16.
+//  Created by Vishnu S R on 11/5/16.
 //  Copyright © 2016 ISS. All rights reserved.
 //
 

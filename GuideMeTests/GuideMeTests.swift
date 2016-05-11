@@ -11,14 +11,14 @@ import XCTest
 
 class GuideMeTests: XCTestCase {
     
-    var vc : SmsViewController = SmsViewController()
+    var vc : ContactViewController = ContactViewController()
 
     
     override func setUp() {
         super.setUp()
         // Put setup code here. This method is called before the invocation of each test method in the class.
         let storyboard = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle())
-        vc = storyboard.instantiateViewControllerWithIdentifier("smsViewController") as! SmsViewController
+        vc = storyboard.instantiateViewControllerWithIdentifier("contactViewController") as! ContactViewController
     }
     
     override func tearDown() {

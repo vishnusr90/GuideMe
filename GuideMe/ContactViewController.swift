@@ -1,5 +1,5 @@
 //
-//  SmsViewController.swift
+//  ContactViewController.swift
 //  GuideMe
 //
 //  Created by Ankan Das on 7/5/16.
@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate {
+class ContactViewController: UIViewController,UITableViewDataSource,UITableViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var scrollPage: UIScrollView!
     
@@ -29,7 +29,7 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     override func viewDidLoad() {
  
         scrollPage.contentSize.height = 700
-        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(SmsViewController.respondToSwipeGesture(_:)))
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(ContactViewController.respondToSwipeGesture(_:)))
         swipeRight.direction = UISwipeGestureRecognizerDirection.Right
         self.view.addGestureRecognizer(swipeRight)
         
@@ -49,6 +49,14 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         
         let nameStr = name.text as NSString?
         let phoneStr = phone.text
+        
+        if ((name.text == nil && phone.text == nil) || name.text == "" || phone.text == "" || name.text == "Name" || phone.text == "Phone Number"){
+            TextToVoice.getInstance().textToVoice("Please enter the name and phone number")
+            name.resignFirstResponder()
+            phone.resignFirstResponder()
+            return
+        }
+        
         var contact : Contact = Contact()
         
         contact =  ContactsDataBaseTable.getInstance().createContact(nameStr!,phone: phoneStr!)
@@ -69,7 +77,8 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
     
     @IBAction func updateContact(sender: AnyObject) {
         
-        if ((name.text == nil && phone.text == nil) || name.text == "" || phone.text == ""){
+        if ((name.text == nil && phone.text == nil) || name.text == "" || phone.text == "" || name.text == "Name" || phone.text == "Phone Number"){
+            TextToVoice.getInstance().textToVoice("Please enter the name and phone number")
             updateOutlet.enabled = false
             name.resignFirstResponder()
             phone.resignFirstResponder()
@@ -137,8 +146,6 @@ class SmsViewController: UIViewController,UITableViewDataSource,UITableViewDeleg
         let phone = phoneList[indexPath.row] as! String
         cell.textLabel?.text = contact
         cell.detailTextLabel?.text = phone
-        print(contactList)
-        print(phoneList)
         return cell
     }
     

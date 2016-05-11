@@ -63,7 +63,6 @@ class DataBaseTable {
         
         if(sqlite3_step(deleteStatement) ==  SQLITE_DONE) {
             
-            print("Successfully deleted the records")
             
         }else {
             

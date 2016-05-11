@@ -62,7 +62,7 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
     func scanForDevices() {
         
         beaconRegion = CLBeaconRegion(proximityUUID: uuid!, identifier: "MRT")
-        //locationManager.startMonitoringForRegion(beaconRegion)
+        locationManager.startMonitoringForRegion(beaconRegion!)
         locationManager.startRangingBeaconsInRegion(beaconRegion!)
     }
     
@@ -117,9 +117,9 @@ class BeaconViewController: UIViewController, CLLocationManagerDelegate {
     
     
     /* Calling contact */
-    @IBAction func sendSMS(sender: AnyObject) {
+    @IBAction func sendCall(sender: AnyObject) {
         
-        let phone = SmsViewController().retrivePhoneNumber()
+        let phone = ContactViewController().retrivePhoneNumber()
         
         if phone != "Nil"{
             var callUrl : NSURL = NSURL(string: "tel://\(phone)")!

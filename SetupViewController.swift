@@ -37,7 +37,7 @@ class SetupViewController: UIViewController {
         
         self.synthesizer.stopSpeakingAtBoundary(AVSpeechBoundary.Immediate)
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
-        let nvc : UIViewController = storyBoard.instantiateViewControllerWithIdentifier("smsViewController")
+        let nvc : UIViewController = storyBoard.instantiateViewControllerWithIdentifier("contactViewController")
         self.presentViewController(nvc, animated: true, completion: nil)
     }
     

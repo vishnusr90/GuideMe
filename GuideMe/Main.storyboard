@@ -91,7 +91,7 @@
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="39"/>
                                 <state key="normal" title="Call"/>
                                 <connections>
-                                    <action selector="sendSMS:" destination="5PA-QH-G3M" eventType="touchUpInside" id="m3w-SA-inN"/>
+                                    <action selector="sendCall:" destination="5PA-QH-G3M" eventType="touchUpInside" id="mxi-9k-rg6"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -130,7 +130,7 @@
         <!--GUIDE ME-->
         <scene sceneID="Bdu-hr-TvS">
             <objects>
-                <viewController storyboardIdentifier="smsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a4g-65-pp6" customClass="SmsViewController" customModule="GuideMe" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="contactViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="a4g-65-pp6" customClass="ContactViewController" customModule="GuideMe" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="0gO-cx-axY"/>
                         <viewControllerLayoutGuide type="bottom" id="AHq-XY-NJ5"/>
@@ -334,9 +334,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" maximumValueImage="bright" translatesAutoresizingMaskIntoConstraints="NO" id="JXc-ME-H1y">
+                            <slider opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" maximumValueImage="bright" translatesAutoresizingMaskIntoConstraints="NO" id="JXc-ME-H1y">
                                 <rect key="frame" x="45" y="247" width="284" height="225"/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="minimumTrackTintColor" red="1" green="0.4048125434" blue="0.22981215150000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="maximumTrackTintColor" red="0.573629006" green="0.8195142473" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
@@ -428,7 +428,7 @@
         <image name="bright" width="225" height="225"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="jNf-Ln-wxT"/>
         <segue reference="OXv-9p-FSv"/>
-        <segue reference="yCo-bB-q1J"/>
     </inferredMetricsTieBreakers>
 </document>

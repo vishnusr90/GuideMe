@@ -22,7 +22,7 @@
 		3F030C101CDD9289002932C2 /* TextToVoice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F030C0F1CDD9289002932C2 /* TextToVoice.swift */; };
 		3F030C121CDD9539002932C2 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F030C111CDD9539002932C2 /* libsqlite3.tbd */; };
 		3F030C141CDD9540002932C2 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3F030C131CDD9540002932C2 /* AVFoundation.framework */; };
-		3F09A0AD1CDDD5FB0009A39C /* SmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F09A0AC1CDDD5FB0009A39C /* SmsViewController.swift */; };
+		3F09A0AD1CDDD5FB0009A39C /* ContactViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F09A0AC1CDDD5FB0009A39C /* ContactViewController.swift */; };
 		3F0B4DCA1CE3C80400AC3D6C /* error.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F0B4DC91CE3C80400AC3D6C /* error.mp3 */; };
 		3F2D4C611CE3460900A2D198 /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2D4C5F1CE3460900A2D198 /* DisplayViewController.swift */; };
 		3F2D4C621CE3460900A2D198 /* SetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F2D4C601CE3460900A2D198 /* SetupViewController.swift */; };
@@ -71,7 +71,7 @@
 		3F030C0F1CDD9289002932C2 /* TextToVoice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextToVoice.swift; sourceTree = "<group>"; };
 		3F030C111CDD9539002932C2 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
 		3F030C131CDD9540002932C2 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		3F09A0AC1CDDD5FB0009A39C /* SmsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SmsViewController.swift; sourceTree = "<group>"; };
+		3F09A0AC1CDDD5FB0009A39C /* ContactViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactViewController.swift; sourceTree = "<group>"; };
 		3F0B4DC91CE3C80400AC3D6C /* error.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = error.mp3; sourceTree = "<group>"; };
 		3F2D4C5F1CE3460900A2D198 /* DisplayViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DisplayViewController.swift; path = ../DisplayViewController.swift; sourceTree = "<group>"; };
 		3F2D4C601CE3460900A2D198 /* SetupViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SetupViewController.swift; path = ../SetupViewController.swift; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 				3F030C041CDD91F0002932C2 /* Sound */,
 				3F02C4CE1CD934D90034141A /* AppDelegate.swift */,
 				3F02C4D01CD934D90034141A /* ViewController.swift */,
-				3F09A0AC1CDDD5FB0009A39C /* SmsViewController.swift */,
+				3F09A0AC1CDDD5FB0009A39C /* ContactViewController.swift */,
 				3F2D4C601CE3460900A2D198 /* SetupViewController.swift */,
 				3F2D4C5F1CE3460900A2D198 /* DisplayViewController.swift */,
 				3F5F3C3D1CDBE5D200DBFB13 /* BeaconViewController.swift */,
@@ -337,7 +337,7 @@
 				3F030C101CDD9289002932C2 /* TextToVoice.swift in Sources */,
 				3F030C031CDD919C002932C2 /* Bridging-Header.m in Sources */,
 				3FF9379C1CDFA3BE00267F30 /* ContactsDataBaseTable.swift in Sources */,
-				3F09A0AD1CDDD5FB0009A39C /* SmsViewController.swift in Sources */,
+				3F09A0AD1CDDD5FB0009A39C /* ContactViewController.swift in Sources */,
 				3FF9379E1CDFAD6B00267F30 /* Contact.swift in Sources */,
 				3F2D4C611CE3460900A2D198 /* DisplayViewController.swift in Sources */,
 				3F02C4D11CD934D90034141A /* ViewController.swift in Sources */,
