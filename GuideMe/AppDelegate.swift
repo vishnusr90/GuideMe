@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  GuideMe
 //
-//  Created by student on 4/5/16.
+//  Created by Vishnu on 4/5/16.
 //  Copyright © 2016 ISS. All rights reserved.
 //
 
@@ -16,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         // Override point for customization after application launch.
+        DataBaseTable.getInstance().createTable()
+        ContactsDataBaseTable.getInstance().createContactTable()
         return true
     }
 
@@ -40,6 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+   
 
 
 }
